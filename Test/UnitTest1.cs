@@ -10,7 +10,7 @@ namespace Test
         [Fact]
         public void Test1()
         {
-            DAL.Repository.EFCore.ContextFactory f = new ContextFactory();
+            ContextFactory f = new ContextFactory();
             var k = f.CreateDbContext(null);
             k.Users.Add(new User() {Name = "Nadsdssd", Address = "dsdsefw "});
             k.SaveChanges();

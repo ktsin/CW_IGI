@@ -5,9 +5,9 @@ namespace DAL.Entities
     public class Good
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public ulong Id { get; set; }
+        public int Id { get; set; }
         
-        public ulong StoreId { get; set; }
+        public int StoreId { get; set; }
         
         public string PathToPhotoGallery { get; set; }
         
@@ -19,6 +19,6 @@ namespace DAL.Entities
         
         public uint Price { get; set; }
         
-        public uint CategoryId { get; set; }
+        public int CategoryId { get; set; }
     }
 }

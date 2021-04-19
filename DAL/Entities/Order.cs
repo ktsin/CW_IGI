@@ -6,11 +6,11 @@ namespace DAL.Entities
     public class Order
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public ulong Id { get; set; }
+        public int Id { get; set; }
         
         public List<Good> Goods { get; set; }
         //Buyer
-        public ulong UserId { get; set; }
+        public int UserId { get; set; }
         
         public string Notes { get; set; }
 

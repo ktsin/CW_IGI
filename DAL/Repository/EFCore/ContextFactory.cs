@@ -18,12 +18,14 @@ namespace DAL.Repository.EFCore
         {
             var optionsBuilder = new DbContextOptionsBuilder<DataContext>();
 
-            optionsBuilder.UseSqlite("DataSource=\"my.sqlite3\";").EnableDetailedErrors();
-            // optionsBuilder.UseNpgsql(
-            //     @"Host=database-1.cgmldnmavr61.eu-central-1.rds.amazonaws.com;Port=5432;"+
-            //             "Database=maindata;Username=postgres;Password=singul2040;", 
-            //     o=>o.UseNodaTime());
-            // NpgsqlConnection.GlobalTypeMapper.UseNodaTime();
+            // optionsBuilder.UseSqlite("DataSource=\"my.sqlite3\";").EnableDetailedErrors();
+            optionsBuilder.UseNpgsql(
+                @"Host=database-1.cgmldnmavr61.eu-central-1.rds.amazonaws.com;Port=5432;"+
+                        "Database=cwdata;Username=postgres;Password=singul2040;", 
+                o=>o.UseNodaTime())
+                .EnableSensitiveDataLogging()
+                .EnableDetailedErrors();
+            NpgsqlConnection.GlobalTypeMapper.UseNodaTime();
             return new DataContext(optionsBuilder.Options);
         }
     }

@@ -5,8 +5,8 @@ namespace DAL.Entities
     public class Managers
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public ulong Id { get; set; }
-        public uint StoreId { get; set; } 
-        public ulong UserId { get; set; }
+        public int Id { get; set; }
+        public int StoreId { get; set; } 
+        public int UserId { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace DAL.Entities
     public class User
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public ulong Id { get; set; }
+        public int Id { get; set; }
 
         [MinLength(4)] public string Name { get; set; }
 
