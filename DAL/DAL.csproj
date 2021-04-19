@@ -14,12 +14,19 @@
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
       <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+      <PackageReference Include="NodaTime" Version="3.0.5" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.5" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.NodaTime" Version="5.0.5" />
+      <PackageReference Include="Npgsql.NodaTime" Version="5.0.4" />
       <PackageReference Include="System.Text.Json" Version="5.0.2" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Repository\Interfaces" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="my.sqlite3" />
     </ItemGroup>
 
 </Project>

@@ -1,12 +1,15 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DAL.Migrations
 {
-    public partial class Initial2 : Migration
+    public partial class Init2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropColumn(
+                name: "Birthday",
+                table: "Users");
+
             migrationBuilder.AlterColumn<string>(
                 name: "PhotoPath",
                 table: "Users",
@@ -24,14 +27,6 @@ namespace DAL.Migrations
                 oldClrType: typeof(string),
                 oldType: "TEXT",
                 oldNullable: true);
-
-            migrationBuilder.AlterColumn<DateTime>(
-                name: "Birthday",
-                table: "Users",
-                type: "timestamp without time zone",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "TEXT");
 
             migrationBuilder.AlterColumn<string>(
                 name: "Address",
@@ -308,14 +303,6 @@ namespace DAL.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "Birthday",
-                table: "Users",
-                type: "TEXT",
-                nullable: false,
-                oldClrType: typeof(DateTime),
-                oldType: "timestamp without time zone");
-
-            migrationBuilder.AlterColumn<string>(
                 name: "Address",
                 table: "Users",
                 type: "TEXT",
@@ -331,6 +318,13 @@ namespace DAL.Migrations
                 nullable: false,
                 oldClrType: typeof(decimal),
                 oldType: "numeric(20,0)");
+
+            migrationBuilder.AddColumn<string>(
+                name: "Birthday",
+                table: "Users",
+                type: "TEXT",
+                nullable: false,
+                defaultValue: "");
 
             migrationBuilder.AlterColumn<int>(
                 name: "Rating",

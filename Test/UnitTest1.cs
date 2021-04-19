@@ -1,4 +1,6 @@
 using System;
+using DAL.Entities;
+using DAL.Repository.EFCore;
 using Xunit;
 
 namespace Test
@@ -8,6 +10,10 @@ namespace Test
         [Fact]
         public void Test1()
         {
+            DAL.Repository.EFCore.ContextFactory f = new ContextFactory();
+            var k = f.CreateDbContext(null);
+            k.Users.Add(new User() {Name = "Nadsdssd", Address = "dsdsefw "});
+            k.SaveChanges();
         }
     }
 }

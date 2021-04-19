@@ -6,6 +6,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
+using Npgsql;
+using Npgsql.NodaTime;
+using Npgsql.EntityFrameworkCore.PostgreSQL.NodaTime;
 
 namespace DAL.Repository.EFCore
 {
@@ -15,10 +18,12 @@ namespace DAL.Repository.EFCore
         {
             var optionsBuilder = new DbContextOptionsBuilder<DataContext>();
 
-            // optionsBuilder.UseSqlite("DataSource=\"my.sqlite3\";");
-            optionsBuilder.UseNpgsql(
-                @"Host=database-1.cgmldnmavr61.eu-central-1.rds.amazonaws.com;Port=5432;"+
-                        "Database=maindata;Username=postgres;Password=singul2040;");
+            optionsBuilder.UseSqlite("DataSource=\"my.sqlite3\";").EnableDetailedErrors();
+            // optionsBuilder.UseNpgsql(
+            //     @"Host=database-1.cgmldnmavr61.eu-central-1.rds.amazonaws.com;Port=5432;"+
+            //             "Database=maindata;Username=postgres;Password=singul2040;", 
+            //     o=>o.UseNodaTime());
+            // NpgsqlConnection.GlobalTypeMapper.UseNodaTime();
             return new DataContext(optionsBuilder.Options);
         }
     }

@@ -9,6 +9,8 @@ namespace DAL.Repository.EFCore
         public DataContext(DbContextOptions<DataContext> opt) : base(opt)
         {
             base.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            Database.EnsureDeleted();
+            Database.EnsureCreated();
         }
         public DbSet<User> Users { get; set; }
         
