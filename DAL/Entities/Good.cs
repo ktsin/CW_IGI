@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL.Entities
@@ -20,5 +22,7 @@ namespace DAL.Entities
         public uint Price { get; set; }
         
         public int CategoryId { get; set; }
+        
+        public ICollection<UserBasket> InBaskets { get; set; }
     }
 }
