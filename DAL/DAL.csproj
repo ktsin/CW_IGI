@@ -28,6 +28,15 @@
 
     <ItemGroup>
       <None Remove="my.sqlite3" />
+      <None Remove="Migrations\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Migrations\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Migrations\**" />
     </ItemGroup>
 
 </Project>
