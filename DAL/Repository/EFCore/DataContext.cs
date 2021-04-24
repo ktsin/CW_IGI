@@ -8,10 +8,11 @@ namespace DAL.Repository.EFCore
     {
         public DataContext(DbContextOptions<DataContext> opt) : base(opt)
         {
-            base.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             Database.EnsureDeleted();
             Database.EnsureCreated();
+            base.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
+
         public DbSet<User> Users { get; set; }
 
         public DbSet<Category> Categories { get; set; }
@@ -27,7 +28,7 @@ namespace DAL.Repository.EFCore
         public DbSet<Order> OrderHistory { get; set; }
 
         public DbSet<Message> Messages { get; set; }
-        
+
         public DbSet<UserBasket> UserBaskets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -67,8 +68,13 @@ namespace DAL.Repository.EFCore
                 .HasOne<User>()
                 .WithOne();
             modelBuilder.Entity<UserBasket>()
-                .HasMany<Good>(p=>p.SelectedGoods)
-                .WithMany(p=>p.InBaskets);
+                .HasMany<Good>(p => p.SelectedGoods)
+                .WithMany(p => p.InBaskets);
+            FakeDataGenerator.Init(10000);
+            modelBuilder.Entity<User>().HasData(FakeDataGenerator.Users);
+            modelBuilder.Entity<Store>().HasData(FakeDataGenerator.Stores);
+            modelBuilder.Entity<Managers>().HasData(FakeDataGenerator.Managers);
+            modelBuilder.Entity<Message>().HasData(FakeDataGenerator.Messages);
         }
     }
 }
