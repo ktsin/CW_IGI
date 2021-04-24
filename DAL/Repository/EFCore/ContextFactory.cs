@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore.Design;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json.Linq;
 using Npgsql;
 using Npgsql.NodaTime;
 using Npgsql.EntityFrameworkCore.PostgreSQL.NodaTime;

@@ -56,6 +56,9 @@ namespace DAL.Repository.EFCore
                 .HasOne<User>()
                 .WithMany()
                 .HasForeignKey(p => p.UserId);
+            modelBuilder.Entity<Order>()
+                .HasMany(e => e.Goods)
+                .WithOne();
             modelBuilder.Entity<Store>()
                 .HasOne<User>()
                 .WithMany()

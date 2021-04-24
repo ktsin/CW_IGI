@@ -12,7 +12,7 @@ namespace Test
         {
             ContextFactory f = new ContextFactory();
             var k = f.CreateDbContext(null);
-            k.Users.Add(new User() {Name = "Nadsdssd", Address = "dsdsefw "});
+            _ = k.Users.Add(new User() {Name = "Nadsdssd", Address = "dsdsefw "});
             k.SaveChanges();
         }
     }

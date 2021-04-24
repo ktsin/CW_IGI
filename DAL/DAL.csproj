@@ -22,11 +22,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Repository\EFCore\Repositories" />
-      <Folder Include="Repository\Interfaces" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Remove="my.sqlite3" />
       <None Remove="Migrations\**" />
     </ItemGroup>

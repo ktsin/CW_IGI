@@ -8,10 +8,8 @@ namespace DAL.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         
-        [ForeignKey("Users.Id")] 
         public int SenderId { get; set; }
-
-        [ForeignKey("Users.Id")] 
+        
         public int RecipientId { get; set; }
 
         [MaxLength(1023)] public string MessageBody { get; set; }
