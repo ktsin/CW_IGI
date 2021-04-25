@@ -50,7 +50,22 @@ namespace DAL.Repository
                 .RuleFor(e => e.RecipientId, f => f.Random.ListItem(Users).Id)
                 .RuleFor(e => e.MessageBody, f => f.Lorem.Sentences(3));
             FakeDataGenerator.Messages.AddRange(messageFaker.Generate(30*cont));
-            
+            var categoryFaker = new Faker<Category>()
+                .RuleFor(e => e.Id, f => f.IndexGlobal)
+                .RuleFor(e => e.Name, f => f.Commerce.Categories(1)[0])
+                .RuleFor(e => e.Description, f => f.Commerce.ProductDescription());
+            FakeDataGenerator.Categories.AddRange(categoryFaker.Generate(cont/10));
+            var goodFaker = new Faker<Good>()
+                .RuleFor(e => e.Id, f => f.IndexGlobal)
+                .RuleFor(e => e.Description, f => f.Commerce.ProductDescription())
+                .RuleFor(e => e.Name, f => f.Commerce.ProductName())
+                .RuleFor(e => e.StoreId, f => f.IndexGlobal)
+                .RuleFor(e=>e.Price, f=>f.Random.UInt(100, 10000));
+            var orderFaker = new Faker<Order>()
+                .RuleFor(e => e.Id, f => f.IndexGlobal)
+                .RuleFor(e => e.UserId, f => f.Random.ListItem(Users).Id)
+                .RuleFor(e => e.Goods, f => f.Random.ListItems(Goods));
+            FakeDataGenerator.Orders.AddRange(orderFaker.Generate(cont*5));
         }
     }
 }

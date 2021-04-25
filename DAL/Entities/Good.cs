@@ -22,7 +22,5 @@ namespace DAL.Entities
         public uint Price { get; set; }
         
         public int CategoryId { get; set; }
-        
-        public ICollection<UserBasket> InBaskets { get; set; }
     }
 }

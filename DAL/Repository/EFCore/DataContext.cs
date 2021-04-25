@@ -69,12 +69,15 @@ namespace DAL.Repository.EFCore
                 .WithOne();
             modelBuilder.Entity<UserBasket>()
                 .HasMany<Good>(p => p.SelectedGoods)
-                .WithMany(p => p.InBaskets);
-            FakeDataGenerator.Init(10000);
+                .WithOne();
+            FakeDataGenerator.Init(100);
             modelBuilder.Entity<User>().HasData(FakeDataGenerator.Users);
             modelBuilder.Entity<Store>().HasData(FakeDataGenerator.Stores);
             modelBuilder.Entity<Managers>().HasData(FakeDataGenerator.Managers);
             modelBuilder.Entity<Message>().HasData(FakeDataGenerator.Messages);
+            modelBuilder.Entity<Category>().HasData(FakeDataGenerator.Categories);
+            modelBuilder.Entity<Good>().HasData(FakeDataGenerator.Goods);
+            modelBuilder.Entity<Order>().HasData(FakeDataGenerator.Orders);
         }
     }
 }
