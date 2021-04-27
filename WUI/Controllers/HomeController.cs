@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WUI.Models;
+using System.Threading;
 
 namespace WUI.Controllers
 {
@@ -20,12 +21,13 @@ namespace WUI.Controllers
         
         public IActionResult Index()
         {
-            return PartialView("Index");
+            return View();
         }
         
-        public IActionResult Index0()
+        public async Task<IActionResult> Index0()
         {
-            return PartialView("Index0");
+            Thread.Sleep(1500);
+             return await Task.Run(()=>PartialView("Index0"));
         }
 
         public IActionResult Privacy()
