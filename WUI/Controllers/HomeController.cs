@@ -17,15 +17,20 @@ namespace WUI.Controllers
         {
             _logger = logger;
         }
-
+        
         public IActionResult Index()
         {
-            return View();
+            return PartialView("Index");
+        }
+        
+        public IActionResult Index0()
+        {
+            return PartialView("Index0");
         }
 
         public IActionResult Privacy()
         {
-            return View();
+            return PartialView("Privacy");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
