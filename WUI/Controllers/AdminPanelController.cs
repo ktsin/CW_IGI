@@ -54,7 +54,14 @@ namespace WUI.Controllers
         [HttpPost]
         public async Task<IActionResult> OnCreateUserForm(WebUser user)
         {
-            WebUser n_user = new WebUser() { Email = user.Email, UserName = user.UserName, UnderlyingUserId = user.UnderlyingUserId};
+            WebUser n_user = new WebUser()
+            {
+                Email = user.Email,
+                UserName = user.UserName,
+                UnderlyingUserId = user.UnderlyingUserId,
+                EmailConfirmed = user.EmailConfirmed,
+                AccessFailedCount = user.AccessFailedCount,
+            };
             // добавляем пользователя
             var result = await _userManager.CreateAsync(n_user, user.PasswordHash);
             if (result.Succeeded)
