@@ -36,7 +36,7 @@ namespace WUI
                     .GetConnectionString("WebUserConnectionString")));
 
             services
-                .AddIdentity<WebUser, IdentityRole>()
+                .AddIdentity<WebUser, WebUserRole>()
                 .AddEntityFrameworkStores<WebUserContext>();
             services.Configure<IdentityOptions>(opt =>
             {

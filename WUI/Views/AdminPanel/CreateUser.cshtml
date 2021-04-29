@@ -24,7 +24,8 @@
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="EmailConfirmed" /> @Html.DisplayNameFor(model => model.EmailConfirmed)
+                    <input class="form-check-input" asp-for="EmailConfirmed" />
+                    @Html.DisplayNameFor(model => model.EmailConfirmed)
                 </label>
             </div>
             <div class="form-group">
@@ -47,10 +48,6 @@
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

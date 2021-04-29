@@ -1,15 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
 using WUI.Models;
-using System.Threading;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using WUI.Auth;
 
 namespace WUI.Controllers
@@ -19,14 +14,17 @@ namespace WUI.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly WebUserContext _context = null;
         private readonly UserManager<WebUser> _userManager = null;
+        private readonly RoleManager<WebUserRole> _roleManager = null;
 
         public AdminPanelController(ILogger<HomeController> logger,
             WebUserContext context,
-            UserManager<WebUser> userManager)
+            UserManager<WebUser> userManager,
+            RoleManager<WebUserRole> roleManager)
         {
             _logger = logger;
             _context = context;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
         
         public async Task<IActionResult> Index()
@@ -37,7 +35,7 @@ namespace WUI.Controllers
 
         public async Task<IActionResult> Users()
         {
-            return await Task.Run(() => View(_context.Users.ToList()));
+            return await Task.Run(() => View(_context));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -61,8 +59,8 @@ namespace WUI.Controllers
                 UnderlyingUserId = user.UnderlyingUserId,
                 EmailConfirmed = user.EmailConfirmed,
                 AccessFailedCount = user.AccessFailedCount,
+                PhoneNumber = user.PhoneNumber,
             };
-            // добавляем пользователя
             var result = await _userManager.CreateAsync(n_user, user.PasswordHash);
             if (result.Succeeded)
             {
@@ -76,6 +74,20 @@ namespace WUI.Controllers
                 }
             }
             return RedirectToAction("Users");
+        }
+
+        public async Task<IActionResult> OnCreateRole(WebUserRole role)
+        {
+            if (_context.Roles.Any(e => ((e.Id.CompareTo(role.Id)) == 0)))
+            {
+                await _roleManager.SetRoleNameAsync(role, role.Name);
+            }
+            else
+            {
+                role.Id = null;
+                await _roleManager.CreateAsync(role);
+            }
+            return RedirectToAction("Users", _context);
         }
     }
 }
