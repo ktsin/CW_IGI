@@ -8,7 +8,7 @@ namespace WUI.Auth
         public WebUserContext(DbContextOptions<WebUserContext> options)
             : base(options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
     }
 }
