@@ -1,12 +1,12 @@
 using BLL.Services;
 using Microsoft.Extensions.DependencyInjection;
 using DAL;
-using DAL.Entities;
 
 namespace BLL
 {
     public static class Configure
     {
+        // ReSharper disable once InconsistentNaming
         public static IServiceCollection ConfigureBLL(this IServiceCollection services, string connectionString)
         {
             services.ConfigureDAL(connectionString);
