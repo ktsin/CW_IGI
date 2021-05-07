@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using BLL.DTO;
+using BLL.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WUI.Models;
@@ -15,16 +17,19 @@ namespace WUI.Controllers
         private readonly WebUserContext _context = null;
         private readonly UserManager<WebUser> _userManager = null;
         private readonly RoleManager<WebUserRole> _roleManager = null;
+        private readonly StoreService _stores = null;
 
         public AdminPanelController(ILogger<HomeController> logger,
             WebUserContext context,
             UserManager<WebUser> userManager,
-            RoleManager<WebUserRole> roleManager)
+            RoleManager<WebUserRole> roleManager,
+            StoreService stores)
         {
             _logger = logger;
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
+            _stores = stores;
         }
         
         public async Task<IActionResult> Index()
@@ -88,6 +93,19 @@ namespace WUI.Controllers
                 await _roleManager.CreateAsync(role);
             }
             return RedirectToAction("Users", _context);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Stores()
+        {
+            return null;
+        }
+
+        [HttpGet]
+        public IActionResult _addStore()
+        {
+            var tmp = new StoreDTO();
+            return View("_StoresAddForm", tmp);
         }
     }
 }

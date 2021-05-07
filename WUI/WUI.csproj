@@ -33,6 +33,15 @@
       <Folder Include="Areas\CreateUser\Data" />
       <Folder Include="Areas\CreateUser\Models" />
       <Folder Include="Areas\CreateUser\Views" />
+      <Folder Include="wwwroot\img" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="Views\AdminPanel\ii.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Views\AdminPanel\ii.cshtml.cs" />
     </ItemGroup>
 
 </Project>
