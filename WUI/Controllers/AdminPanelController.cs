@@ -98,7 +98,7 @@ namespace WUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Stores()
         {
-            return null;
+            return await View("_Stores", _stores.);
         }
 
         [HttpGet]

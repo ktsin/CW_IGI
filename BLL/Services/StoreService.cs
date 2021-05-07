@@ -1,3 +1,5 @@
+using BLL.DTO;
+using DAL.Entities;
 using DAL.Repository.Interfaces;
 
 namespace BLL.Services
@@ -8,6 +10,11 @@ namespace BLL.Services
         public StoreService(IStoreRepository stores)
         {
             _stores = stores;
+        }
+
+        public bool RegisterStore(StoreDTO store)
+        {
+            return _stores.Add(null);
         }
     }
 }

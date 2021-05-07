@@ -8,8 +8,8 @@ namespace DAL.Repository.EFCore
     {
         public DataContext(DbContextOptions<DataContext> opt) : base(opt)
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+            // Database.EnsureDeleted();
+            // Database.EnsureCreated();
             base.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
