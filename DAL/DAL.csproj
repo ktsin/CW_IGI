@@ -25,6 +25,7 @@
     <ItemGroup>
       <None Remove="my.sqlite3" />
       <None Remove="Migrations\**" />
+      <None Remove="datalakes.json" />
     </ItemGroup>
 
     <ItemGroup>

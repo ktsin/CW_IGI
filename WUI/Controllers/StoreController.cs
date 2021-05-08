@@ -23,7 +23,7 @@ namespace WUI.Controllers
         [HttpPost]
         public IActionResult Add(StoreDTO _store)
         {
-            _storeService.
+            return null;
         }
     }
 }

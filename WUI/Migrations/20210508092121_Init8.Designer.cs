@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WUI.Auth;
 
 namespace WUI.Migrations
 {
     [DbContext(typeof(WebUserContext))]
-    partial class WebUserContextModelSnapshot : ModelSnapshot
+    [Migration("20210508092121_Init8")]
+    partial class Init8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
