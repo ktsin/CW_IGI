@@ -20,6 +20,7 @@ namespace WUI
             services.AddDbContext<WebUserContext>(opt =>
                 opt.UseSqlite(configuration
                     .GetConnectionString("WebUserConnectionString")));
+            
 
             services
                 .AddIdentity<WebUser, WebUserRole>()
