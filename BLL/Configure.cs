@@ -25,7 +25,7 @@ namespace BLL
             services.AddScoped<UserService>();
 #if DEBUG
             services.AddDbContext<DataLandfill.DataLandfillContext>(opt=>
-                opt.UseSqlite(config.GetConnectionString("DataLandfillConnectionString")));
+                opt.UseSqlite(config.GetConnectionString("DataLandfillConnectionStringDebug")));
 #endif
 #if !DEBUG
             services.AddDbContext<DataLandfill.DataLandfillContext>(opt=>

@@ -10,12 +10,22 @@ namespace DAL
         // ReSharper disable once InconsistentNaming
         public static IServiceCollection ConfigureDAL(this IServiceCollection services, string connectionString)
         {
+            #if DEBUG
             services.AddDbContext<Repository.EFCore.DataContext>(
                 e => { 
                     e.UseSqlite(connectionString);
                     e.EnableDetailedErrors();
                     e.EnableSensitiveDataLogging();
                 });
+#endif
+            #if !DEBUG
+            services.AddDbContext<Repository.EFCore.DataContext>(
+                e => { 
+                    e.UseNpgsql(connectionString);
+                    e.EnableDetailedErrors();
+                    e.EnableSensitiveDataLogging();
+                });
+            #endif
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IGoodRepository, GoodRepository>();
             services.AddScoped<IManagersRepository, ManagersRepository>();

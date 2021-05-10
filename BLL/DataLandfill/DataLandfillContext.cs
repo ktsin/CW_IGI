@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace BLL.DataLandfill
@@ -6,7 +7,8 @@ namespace BLL.DataLandfill
     {
         public DataLandfillContext(DbContextOptions<DataLandfillContext> opt) : base(opt)
         {
-            
+            // Database.EnsureDeleted();
+            // Database.EnsureCreated();
         }
 
         public DbSet<DataItem> Images { get; set; }

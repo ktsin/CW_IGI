@@ -14,7 +14,7 @@ namespace BLL.Services
         {
             _context = context;
         }
-        private string EncodeFileToBase64(IFormFile file)
+        private static string EncodeFileToBase64(IFormFile file)
         {
             byte[] buffByte = new byte[file.Length];
             Span<byte> buffer = new(buffByte);

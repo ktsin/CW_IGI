@@ -1,10 +1,12 @@
 using System;
+using System.Security;
 using BLL;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WUI.Auth;
+using Npgsql.EntityFrameworkCore;
 
 namespace WUI
 {
@@ -13,13 +15,23 @@ namespace WUI
         public static IServiceCollection ConfigureProjectServices(this IServiceCollection services,
             IConfiguration configuration)
         {
-            services.ConfigureBLL(configuration
-                .GetConnectionString("MainDataDebugConnectionString"));
-
-            services.AddControllersWithViews();
+#if DEBUG
+            var main_data = "MainDataDebugConnectionStringDebug";
+            var web_user = "WebUserConnectionStringDebug";
             services.AddDbContext<WebUserContext>(opt =>
                 opt.UseSqlite(configuration
-                    .GetConnectionString("WebUserConnectionString")));
+                    .GetConnectionString(web_user)));
+#endif
+#if !DEBUG
+            var main_data = "MainDataDebugConnectionString";
+            var web_user = "WebUserConnectionString";
+            services.AddDbContext<WebUserContext>(opt =>
+                opt.UseNpgsql(configuration
+                    .GetConnectionString(web_user)));
+#endif
+            
+            services.ConfigureBLL(configuration
+                .GetConnectionString(main_data), configuration);
             
 
             services
@@ -56,6 +68,8 @@ namespace WUI
                 opt.User.RequireUniqueEmail = false;
             });
 
+            services.AddControllersWithViews();
+            
             return services;
         }
     }
