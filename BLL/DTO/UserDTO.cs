@@ -11,9 +11,9 @@ namespace BLL.DTO
         [MinLength(4)] public string Name { get; set; }
 
         public string Birtday { get; set; }
-        
+
         public string RegistrationDay { get; set; }
-        
+
         public string Address { get; set; }
 
         public string PhotoPath { get; set; }

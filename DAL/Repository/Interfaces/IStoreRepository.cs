@@ -5,6 +5,5 @@ namespace DAL.Repository.Interfaces
 {
     public interface IStoreRepository : IRepository<Store>
     {
-        
     }
 }

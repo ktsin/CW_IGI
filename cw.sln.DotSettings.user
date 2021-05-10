@@ -4,8 +4,8 @@
   &lt;Assembly Path="/home/ktsin/.nuget/packages/npgsql.nodatime/5.0.4/lib/netstandard2.0/Npgsql.NodaTime.dll" /&gt;
   &lt;Assembly Path="/home/ktsin/.nuget/packages/bogus/33.0.2/lib/netstandard2.0/Bogus.dll" /&gt;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b874d7db_002D58f8_002D4b8b_002D8558_002Dbc5f0307fe6d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::AA6BD0C8-D30E-41E9-8E0C-16B24D7E2640::net5.0::Test.UnitTest1&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b874d7db_002D58f8_002D4b8b_002D8558_002Dbc5f0307fe6d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::AA6BD0C8-D30E-41E9-8E0C-16B24D7E2640::net5.0::Test.UnitTest1&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

@@ -30,42 +30,42 @@ namespace DAL.Repository
                 .RuleFor(e => e.RegistrationDay,
                     f => f.Date.Between(new DateTime(2021, 1, 1), new DateTime(2021, 11, 11))
                         .ToString(CultureInfo.InvariantCulture));
-            FakeDataGenerator.Users.AddRange(userFaker.Generate(cont * 10));
-            int storeId = 120;
+            Users.AddRange(userFaker.Generate(cont * 10));
+            var storeId = 120;
             var storeFaker = new Faker<Store>()
-                .RuleFor(e => e.Id, () => (++storeId))
+                .RuleFor(e => e.Id, () => ++storeId)
                 .RuleFor(e => e.Address, f => f.Address.FullAddress())
                 .RuleFor(e => e.Description, f => f.Lorem.Text())
                 .RuleFor(e => e.Name, f => f.Lorem.Word())
-                .RuleFor(e => e.OwnerId, (f, k) => f.Random.ListItem(FakeDataGenerator.Users).Id);
-            FakeDataGenerator.Stores.AddRange(storeFaker.Generate(cont));
+                .RuleFor(e => e.OwnerId, (f, k) => f.Random.ListItem(Users).Id);
+            Stores.AddRange(storeFaker.Generate(cont));
             var managerFaker = new Faker<Managers>()
                 .RuleFor(e => e.Id, f => f.IndexGlobal)
                 .RuleFor(e => e.UserId, f => f.Random.ListItem(Users).Id)
-                .RuleFor(e => e.StoreId, (f => f.Random.ListItem(Stores).Id));
-            FakeDataGenerator.Managers.AddRange(managerFaker.Generate(cont));
+                .RuleFor(e => e.StoreId, f => f.Random.ListItem(Stores).Id);
+            Managers.AddRange(managerFaker.Generate(cont));
             var messageFaker = new Faker<Message>()
                 .RuleFor(e => e.Id, f => f.IndexGlobal)
                 .RuleFor(e => e.SenderId, f => f.Random.ListItem(Users).Id)
                 .RuleFor(e => e.RecipientId, f => f.Random.ListItem(Users).Id)
                 .RuleFor(e => e.MessageBody, f => f.Lorem.Sentences(3));
-            FakeDataGenerator.Messages.AddRange(messageFaker.Generate(30*cont));
+            Messages.AddRange(messageFaker.Generate(30 * cont));
             var categoryFaker = new Faker<Category>()
                 .RuleFor(e => e.Id, f => f.IndexGlobal)
                 .RuleFor(e => e.Name, f => f.Commerce.Categories(1)[0])
                 .RuleFor(e => e.Description, f => f.Commerce.ProductDescription());
-            FakeDataGenerator.Categories.AddRange(categoryFaker.Generate(cont/10));
+            Categories.AddRange(categoryFaker.Generate(cont / 10));
             var goodFaker = new Faker<Good>()
                 .RuleFor(e => e.Id, f => f.IndexGlobal)
                 .RuleFor(e => e.Description, f => f.Commerce.ProductDescription())
                 .RuleFor(e => e.Name, f => f.Commerce.ProductName())
                 .RuleFor(e => e.StoreId, f => f.IndexGlobal)
-                .RuleFor(e=>e.Price, f=>f.Random.UInt(100, 10000));
+                .RuleFor(e => e.Price, f => f.Random.UInt(100, 10000));
             var orderFaker = new Faker<Order>()
                 .RuleFor(e => e.Id, f => f.IndexGlobal)
                 .RuleFor(e => e.UserId, f => f.Random.ListItem(Users).Id)
                 .RuleFor(e => e.Goods, f => f.Random.ListItems(Goods));
-            FakeDataGenerator.Orders.AddRange(orderFaker.Generate(cont*5));
+            Orders.AddRange(orderFaker.Generate(cont * 5));
         }
     }
 }

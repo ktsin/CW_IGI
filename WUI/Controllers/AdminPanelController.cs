@@ -7,105 +7,50 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WUI.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using WUI.Auth;
 
 namespace WUI.Controllers
 {
     public class AdminPanelController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<AdminPanelController> _logger;
         private readonly WebUserContext _context = null;
         private readonly UserManager<WebUser> _userManager = null;
         private readonly RoleManager<WebUserRole> _roleManager = null;
         private readonly StoreService _stores = null;
+        private readonly UserService _uUsers = null;
 
-        public AdminPanelController(ILogger<HomeController> logger,
+        public AdminPanelController(ILogger<AdminPanelController> logger,
             WebUserContext context,
             UserManager<WebUser> userManager,
             RoleManager<WebUserRole> roleManager,
-            StoreService stores)
+            StoreService stores,
+            UserService uUsers)
         {
             _logger = logger;
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
             _stores = stores;
+            _uUsers = uUsers;
         }
-        
+
         public async Task<IActionResult> Index()
         {
-            _logger?.LogInformation(new EventId(12, "AdminPanelShow"), "Admin panel showed", new object[]{} );
-            return await Task.Run(()=>View());
+            _logger?.LogInformation(new EventId(12, "AdminPanelShow"), "Admin panel showed", new object[] { });
+            return await Task.Run(() => View());
         }
 
         public async Task<IActionResult> Users()
         {
-            return await Task.Run(() => View(_context));
+            return await Task.Run(() => PartialView("List/_User_main", _context.Users));
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public async Task<IActionResult> UnderlyingUsers()
         {
-            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
-        }
-        
-        public async Task<IActionResult> CreateUser()
-        {
-            return await Task.Run(() => PartialView(new WebUser()));
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> OnCreateUserForm(WebUser user)
-        {
-            WebUser n_user = new WebUser()
-            {
-                Email = user.Email,
-                UserName = user.UserName,
-                UnderlyingUserId = user.UnderlyingUserId,
-                EmailConfirmed = user.EmailConfirmed,
-                AccessFailedCount = user.AccessFailedCount,
-                PhoneNumber = user.PhoneNumber,
-            };
-            var result = await _userManager.CreateAsync(n_user, user.PasswordHash);
-            if (result.Succeeded)
-            {
-                
-            }
-            else
-            {
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-            }
-            return RedirectToAction("Users");
-        }
-
-        public async Task<IActionResult> OnCreateRole(WebUserRole role)
-        {
-            if (_context.Roles.Any(e => ((e.Id.CompareTo(role.Id)) == 0)))
-            {
-                await _roleManager.SetRoleNameAsync(role, role.Name);
-            }
-            else
-            {
-                role.Id = null;
-                await _roleManager.CreateAsync(role);
-            }
-            return RedirectToAction("Users", _context);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Stores()
-        {
-            return await Task.Run(() => View("_Stores", _stores));
-        }
-
-        [HttpGet]
-        public IActionResult _addStore()
-        {
-            var tmp = new StoreDTO();
-            return View("_StoresAddForm", tmp);
+            return await Task.Run(() => PartialView("List/_underlying_user_main", _uUsers));
         }
     }
 }

@@ -16,9 +16,9 @@ namespace WUI.Auth
 #endif
 #if !DEBUG
             optionsBuilder.UseNpgsql(
-                @"Host=database-1.cgmldnmavr61.eu-central-1.rds.amazonaws.com;Port=5432;"+
-                        "Database=cwusers;Username=postgres;Password=singul2040;", 
-                o=>o.UseNodaTime())
+                    @"Host=database-1.cgmldnmavr61.eu-central-1.rds.amazonaws.com;Port=5432;" +
+                    "Database=cwusers;Username=postgres;Password=singul2040;",
+                    o => o.UseNodaTime())
                 .EnableSensitiveDataLogging()
                 .EnableDetailedErrors();
             NpgsqlConnection.GlobalTypeMapper.UseNodaTime();

@@ -7,11 +7,12 @@ namespace BLL.DTO
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        
+
         public List<GoodDTO> Goods { get; set; }
+
         //Buyer
         public int UserId { get; set; }
-        
+
         public string Notes { get; set; }
 
         public bool IsDone { get; set; } = false;

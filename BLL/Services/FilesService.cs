@@ -9,19 +9,22 @@ namespace BLL.Services
 {
     public class FilesService
     {
-        private readonly DataLandfill.DataLandfillContext _context = null;
-        public FilesService(DataLandfill.DataLandfillContext context)
+        private readonly DataLandfillContext _context = null;
+
+        public FilesService(DataLandfillContext context)
         {
             _context = context;
         }
+
         private static string EncodeFileToBase64(IFormFile file)
         {
-            byte[] buffByte = new byte[file.Length];
+            var buffByte = new byte[file.Length];
             Span<byte> buffer = new(buffByte);
             using (var stream = file.OpenReadStream())
             {
                 stream.Read(buffer);
             }
+
             var res = Convert.ToBase64String(buffer);
             return res;
         }
@@ -32,10 +35,10 @@ namespace BLL.Services
             var encoded = EncodeFileToBase64(file);
             var res = $"data:{type.Trim()};base64,{encoded}";
             var guid = Guid.NewGuid();
-            bool savingResult = true;
+            var savingResult = true;
             try
             {
-                _context.Add(new DataLandfill.DataItem() {Id = guid.ToString(), Base64String = res});
+                _context.Add(new DataItem() {Id = guid.ToString(), Base64String = res});
                 var rows = await _context.SaveChangesAsync();
                 if (rows == 0)
                     savingResult = false;
@@ -45,12 +48,13 @@ namespace BLL.Services
                 Debug.WriteLine(e);
                 savingResult = false;
             }
+
             return savingResult;
         }
 
         public async Task<DataItem> GetFileById(string id)
         {
-            DataItem result = await _context.Images.FindAsync(id);
+            var result = await _context.Images.FindAsync(id);
             return result;
         }
     }

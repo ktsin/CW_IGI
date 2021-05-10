@@ -6,7 +6,8 @@ namespace BLL.DTO
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int StoreId { get; set; } 
+
+        public int StoreId { get; set; }
         public int UserId { get; set; }
     }
 }

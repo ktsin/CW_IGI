@@ -13,10 +13,9 @@ namespace WUI.Auth
             // Database.EnsureCreated();
             base.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
+
         public new DbSet<WebUser> Users { get; set; }
-        
+
         public new DbSet<WebUserRole> Roles { get; set; }
-        
-        
     }
 }

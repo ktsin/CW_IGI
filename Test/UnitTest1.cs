@@ -10,7 +10,7 @@ namespace Test
         [Fact]
         public void Test1()
         {
-            ContextFactory f = new ContextFactory();
+            var f = new ContextFactory();
             var k = f.CreateDbContext(null);
             _ = k.Users.Add(new User() {Name = "Nadsdssd", Address = "dsdsefw "});
             k.SaveChanges();

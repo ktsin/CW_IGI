@@ -8,12 +8,12 @@ namespace WUI.Controllers
     public class StoreController : Controller
     {
         private readonly StoreService _storeService = null;
-        
+
         public StoreController(StoreService storeService)
         {
             _storeService = storeService;
         }
-        
+
         // GET
         public IActionResult Index()
         {

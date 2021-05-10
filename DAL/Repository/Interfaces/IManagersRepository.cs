@@ -5,6 +5,5 @@ namespace DAL.Repository.Interfaces
 {
     public interface IManagersRepository : IRepository<Managers>
     {
-        
     }
 }

@@ -1,3 +1,4 @@
+using DAL.Repository.EFCore;
 using DAL.Repository.EFCore.Repositories;
 using DAL.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ namespace DAL
         // ReSharper disable once InconsistentNaming
         public static IServiceCollection ConfigureDAL(this IServiceCollection services, string connectionString)
         {
-            #if DEBUG
+#if DEBUG
             services.AddDbContext<Repository.EFCore.DataContext>(
                 e => { 
                     e.UseSqlite(connectionString);
@@ -18,14 +19,15 @@ namespace DAL
                     e.EnableSensitiveDataLogging();
                 });
 #endif
-            #if !DEBUG
-            services.AddDbContext<Repository.EFCore.DataContext>(
-                e => { 
+#if !DEBUG
+            services.AddDbContext<DataContext>(
+                e =>
+                {
                     e.UseNpgsql(connectionString);
                     e.EnableDetailedErrors();
                     e.EnableSensitiveDataLogging();
                 });
-            #endif
+#endif
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IGoodRepository, GoodRepository>();
             services.AddScoped<IManagersRepository, ManagersRepository>();
@@ -34,7 +36,7 @@ namespace DAL
             services.AddScoped<IStoreRepository, StoreRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserBasketRepository, UserBasketRepository>();
-            
+
             return services;
         }
     }

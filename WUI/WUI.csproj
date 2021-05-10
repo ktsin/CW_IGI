@@ -2,6 +2,12 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
+        <AssemblyOriginatorKeyFile>00000.snk</AssemblyOriginatorKeyFile>
+        <PublicSign>false</PublicSign>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>
@@ -9,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.5" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.5">
@@ -33,6 +40,10 @@
       <Folder Include="Areas\CreateUser\Data" />
       <Folder Include="Areas\CreateUser\Models" />
       <Folder Include="Areas\CreateUser\Views" />
+      <Folder Include="Areas\_Category_main\Controllers" />
+      <Folder Include="Areas\_Category_main\Data" />
+      <Folder Include="Areas\_Category_main\Models" />
+      <Folder Include="Areas\_Category_main\Views" />
       <Folder Include="wwwroot\img" />
     </ItemGroup>
 

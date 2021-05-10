@@ -11,6 +11,8 @@ namespace DAL.Repository.Interfaces.Generic
 
         public IEnumerable<T> GetAll();
 
+        public IEnumerable<T> GetAllInclude();
+
         public IEnumerable<T> GetBySelector(Func<T, bool> selector);
 
         public bool Remove(int id);

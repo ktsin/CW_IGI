@@ -18,16 +18,16 @@ namespace WUI.Controllers
         {
             _logger = logger;
         }
-        
+
         public IActionResult Index()
         {
             return View();
         }
-        
+
         public async Task<IActionResult> Index0()
         {
             Thread.Sleep(1500);
-             return await Task.Run(()=>PartialView("Index0"));
+            return await Task.Run(() => PartialView("Index0"));
         }
 
         public IActionResult Privacy()

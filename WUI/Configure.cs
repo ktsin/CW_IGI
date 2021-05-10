@@ -10,6 +10,8 @@ using Npgsql.EntityFrameworkCore;
 
 namespace WUI
 {
+    using AutoMapper;
+
     public static class Configure
     {
         public static IServiceCollection ConfigureProjectServices(this IServiceCollection services,
@@ -29,10 +31,10 @@ namespace WUI
                 opt.UseNpgsql(configuration
                     .GetConnectionString(web_user)));
 #endif
-            
+
             services.ConfigureBLL(configuration
                 .GetConnectionString(main_data), configuration);
-            
+
 
             services
                 .AddIdentity<WebUser, WebUserRole>()
@@ -68,8 +70,9 @@ namespace WUI
                 opt.User.RequireUniqueEmail = false;
             });
 
+            services.AddAutoMapper(BLL.Configure.ConfigureMapper);
             services.AddControllersWithViews();
-            
+
             return services;
         }
     }
