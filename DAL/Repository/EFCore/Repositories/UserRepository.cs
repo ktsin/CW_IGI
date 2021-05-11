@@ -86,5 +86,12 @@ namespace DAL.Repository.EFCore.Repositories
 
             return isOk;
         }
+
+        public User Attach(User user)
+        {
+            var attached = _context.Users.Attach(user);
+            _context.SaveChanges();
+            return attached.Entity;
+        }
     }
 }

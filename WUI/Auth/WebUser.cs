@@ -5,14 +5,18 @@ namespace WUI.Auth
 {
     public class WebUser : IdentityUser
     {
-        [DisplayName("User ID")] public override string Id { get; set; }
+        
+        [DisplayName("User ID")]
+        public override string Id { get; set; }
 
         public override string Email { get; set; }
 
-        [DisplayName("Email Confirmation")] public override bool EmailConfirmed { get; set; }
+        [DisplayName("Email Confirmation")]
+        public override bool EmailConfirmed { get; set; }
 
         public override string PasswordHash { get; set; }
 
+        [PersonalData]
         [DisplayName("Underlying User ID")] public int UnderlyingUserId { get; set; }
     }
 }

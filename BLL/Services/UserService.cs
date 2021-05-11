@@ -1,4 +1,6 @@
 using AutoMapper;
+using BLL.DTO;
+using DAL.Entities;
 using DAL.Repository.Interfaces;
 
 namespace BLL.Services
@@ -12,6 +14,22 @@ namespace BLL.Services
         {
             _userRepository = userRepository;
             _mapper = mapper;
+        }
+
+        public UserDTO AttachUser(UserDTO user)
+        {
+            var res = _userRepository.Attach(FromUserDto(user));
+            return ToUserDto(res);
+        }
+        
+        public UserDTO ToUserDto(User user)
+        {
+            return _mapper.Map<User, UserDTO>(user);
+        }
+        
+        public User FromUserDto(UserDTO user)
+        {
+            return _mapper.Map<UserDTO, User>(user);
         }
     }
 }

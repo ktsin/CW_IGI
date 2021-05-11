@@ -52,5 +52,11 @@ namespace WUI.Controllers
         {
             return await Task.Run(() => PartialView("List/_underlying_user_main", _uUsers));
         }
+
+        public IActionResult AddUser()
+        {
+            
+            throw new System.NotImplementedException();
+        }
     }
 }
