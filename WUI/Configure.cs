@@ -72,6 +72,7 @@ namespace WUI
 
             services.AddAutoMapper(BLL.Configure.ConfigureMapper);
             services.AddControllersWithViews();
+            services.AddRazorPages();
 
             return services;
         }

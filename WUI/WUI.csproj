@@ -17,6 +17,7 @@
     <ItemGroup>
       <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.5" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.5" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.5">
         <PrivateAssets>all</PrivateAssets>
@@ -36,14 +37,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Areas\CreateUser\Controllers" />
-      <Folder Include="Areas\CreateUser\Data" />
-      <Folder Include="Areas\CreateUser\Models" />
-      <Folder Include="Areas\CreateUser\Views" />
-      <Folder Include="Areas\_Category_main\Controllers" />
-      <Folder Include="Areas\_Category_main\Data" />
-      <Folder Include="Areas\_Category_main\Models" />
-      <Folder Include="Areas\_Category_main\Views" />
+      <Folder Include="Views\AdminPanel\Forms\Add" />
+      <Folder Include="Views\AdminPanel\Forms\Edit" />
       <Folder Include="wwwroot\img" />
     </ItemGroup>
 
