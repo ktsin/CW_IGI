@@ -1,4 +1,6 @@
 using AutoMapper;
+using BLL.DTO;
+using DAL.Entities;
 using DAL.Repository.Interfaces;
 
 namespace BLL.Services
@@ -12,6 +14,16 @@ namespace BLL.Services
         {
             _orderRepository = orderRepository;
             _mapper = mapper;
+        }
+
+        public OrderDTO ToOrderDto(Order msg)
+        {
+            return _mapper.Map<Order, OrderDTO>(msg);
+        }
+
+        public Order FromOrderDto(OrderDTO msg)
+        {
+            return _mapper.Map<OrderDTO, Order>(msg);
         }
     }
 }

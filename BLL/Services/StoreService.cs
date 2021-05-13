@@ -20,5 +20,15 @@ namespace BLL.Services
         {
             return _stores.Add(null);
         }
+        
+        public StoreDTO ToStoreDto(Store msg)
+        {
+            return _mapper.Map<Store, StoreDTO>(msg);
+        }
+        
+        public Store FromStoreDto(StoreDTO msg)
+        {
+            return _mapper.Map<StoreDTO, Store>(msg);
+        }
     }
 }
