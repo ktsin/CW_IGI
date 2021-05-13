@@ -9,7 +9,9 @@ using WUI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.VisualStudio.Web.CodeGeneration.DotNet;
 using WUI.Auth;
+using OrderState = DAL.Entities.OrderState;
 
 namespace WUI.Controllers
 {
@@ -18,16 +20,21 @@ namespace WUI.Controllers
         private readonly ILogger<AdminPanelController> _logger;
         private readonly WebUserContext _context = null;
         private readonly UserManager<WebUser> _userManager = null;
-        private readonly RoleManager<WebUserRole> _roleManager = null;
+        private readonly RoleManager<IdentityRole> _roleManager = null;
         private readonly StoreService _stores = null;
         private readonly UserService _uUsers = null;
+        private readonly GoodsService _goodsService = null;
+        private readonly OrderService _orderService = null;
 
         public AdminPanelController(ILogger<AdminPanelController> logger,
             WebUserContext context,
             UserManager<WebUser> userManager,
-            RoleManager<WebUserRole> roleManager,
+            RoleManager<IdentityRole> roleManager,
             StoreService stores,
-            UserService uUsers)
+            UserService uUsers,
+            GoodsService goodsService,
+            OrderService orderService
+            )
         {
             _logger = logger;
             _context = context;
@@ -35,6 +42,8 @@ namespace WUI.Controllers
             _roleManager = roleManager;
             _stores = stores;
             _uUsers = uUsers;
+            _goodsService = goodsService;
+            _orderService = orderService;
         }
 
         public async Task<IActionResult> Index()
@@ -50,7 +59,39 @@ namespace WUI.Controllers
 
         public async Task<IActionResult> UnderlyingUsers()
         {
-            return await Task.Run(() => PartialView("List/_underlying_user_main", _uUsers));
+            //TODO: add logic
+            return await Task.Run(() => PartialView("List/_underlying_user_main",
+                null));
+        }
+
+        public async Task<IActionResult> Categories()
+        {
+            return await Task.Run(() => PartialView("List/_Categories_main",
+                _goodsService.GetCategories()));
+        }
+
+        public async Task<IActionResult> Goods()
+        {
+            return await Task.Run(() => PartialView("List/_Goods_main",
+                _goodsService.GetAllGoods()));
+        }
+        
+        public async Task<IActionResult> Roles()
+        {
+            return await Task.Run(() => PartialView("List/_Roles_main",
+                _roleManager.Roles));
+        }
+        
+        public async Task<IActionResult> Stores()
+        {
+            return await Task.Run(() => PartialView("List/_Stores_main",
+                _stores.GetAllStores()));
+        }
+        
+        public async Task<IActionResult> Orders()
+        {
+            return await Task.Run(() => PartialView("List/_Orders_main",
+                _orderService.GetAll()));
         }
 
         public IActionResult AddUser()

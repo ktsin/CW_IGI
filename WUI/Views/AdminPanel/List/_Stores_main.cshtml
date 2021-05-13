@@ -1,7 +1,11 @@
-@model IEnumerable<DAL.Entities.Store>
+@model IEnumerable<BLL.DTO.StoreDTO>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="AddStore">
+        <button class="btn btn-success">
+            Add store
+        </button>
+    </a>
 </p>
 <table class="table">
     <thead>

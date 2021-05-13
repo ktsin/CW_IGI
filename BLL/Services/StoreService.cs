@@ -1,3 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using AutoMapper;
 using BLL.DTO;
 using DAL.Entities;
@@ -19,6 +23,21 @@ namespace BLL.Services
         public bool RegisterStore(StoreDTO store)
         {
             return _stores.Add(null);
+        }
+
+        public bool DeleteStore(int id)
+        {
+            return _stores.Remove(id);
+        }
+
+        public bool EditStore(StoreDTO newStore)
+        {
+            return _stores.Update(FromStoreDto(newStore));
+        }
+
+        public IEnumerable<StoreDTO> GetAllStores()
+        {
+            return _stores.GetAllInclude().Select(ToStoreDto);
         }
         
         public StoreDTO ToStoreDto(Store msg)

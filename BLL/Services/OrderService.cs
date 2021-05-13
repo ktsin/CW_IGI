@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using BLL.DTO;
 using DAL.Entities;
@@ -14,6 +17,11 @@ namespace BLL.Services
         {
             _orderRepository = orderRepository;
             _mapper = mapper;
+        }
+
+        public IEnumerable<OrderDTO> GetAll()
+        {
+            return _orderRepository.GetAllInclude().Select(ToOrderDto);
         }
 
         public OrderDTO ToOrderDto(Order msg)

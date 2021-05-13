@@ -20,5 +20,7 @@ namespace BLL.DTO
         public uint Price { get; set; }
 
         public int CategoryId { get; set; }
+        
+        public ushort Quantity { get; set; }
     }
 }

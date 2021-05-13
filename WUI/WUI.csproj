@@ -46,12 +46,14 @@
       <Content Remove="Views\AdminPanel\ii.cshtml" />
       <Content Remove="Areas\**" />
       <Content Remove="Views\Account\Logout.cshtml" />
+      <Content Remove="Views\AdminPanel\List\_Orders_main.cshtml" />
     </ItemGroup>
 
     <ItemGroup>
       <Compile Remove="Views\AdminPanel\ii.cshtml.cs" />
       <Compile Remove="Areas\**" />
       <Compile Remove="Views\Account\Logout.cshtml.cs" />
+      <Compile Remove="Auth\WebUserRole.cs" />
     </ItemGroup>
 
     <ItemGroup>

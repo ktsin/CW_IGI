@@ -1,21 +1,34 @@
+using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using DAL.Entities;
 
 namespace WUI.Auth
 {
-    public class WebUserContext : IdentityDbContext<WebUser>
+    public sealed class WebUserContext : IdentityDbContext<WebUser>
     {
         public WebUserContext(DbContextOptions<WebUserContext> options)
             : base(options)
         {
             // Database.EnsureDeleted();
             // Database.EnsureCreated();
-            base.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
-        public new DbSet<WebUser> Users { get; set; }
+        public override DbSet<WebUser> Users { get; set; }
 
-        public new DbSet<WebUserRole> Roles { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new List<IdentityRole>()
+                {
+                    new IdentityRole(){Name ="Admin", Id = Guid.NewGuid().ToString()},
+                    new IdentityRole(){Name ="Manager",  Id = Guid.NewGuid().ToString()},
+                    new IdentityRole(){Name ="StoreOwner", Id = Guid.NewGuid().ToString()},
+                    new IdentityRole(){Name ="Basic", Id = Guid.NewGuid().ToString()},
+                });
+        }
     }
 }

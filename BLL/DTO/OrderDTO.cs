@@ -18,5 +18,7 @@ namespace BLL.DTO
         public bool IsDone { get; set; } = false;
 
         public ShipmentOptions ShipmentOptions { get; set; } = ShipmentOptions.SelfShipment;
+        
+        public OrderState State { get; set; } = OrderState.Placed;
     }
 }

@@ -17,7 +17,7 @@ namespace DAL.Repository.EFCore
         {
             var optionsBuilder = new DbContextOptionsBuilder<DataContext>();
 
-            optionsBuilder.UseSqlite("DataSource=\"/home/ktsin/RiderProjects/cw/my.sqlite3\";").EnableDetailedErrors();
+            optionsBuilder.UseSqlite("DataSource=\"my.sqlite3\";").EnableDetailedErrors();
             // optionsBuilder.UseNpgsql(
             //     @"Host=database-1.cgmldnmavr61.eu-central-1.rds.amazonaws.com;Port=5432;"+
             //             "Database=cwdata;Username=postgres;Password=singul2040;", 

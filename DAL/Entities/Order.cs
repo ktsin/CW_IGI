@@ -17,6 +17,12 @@ namespace DAL.Entities
 
         public bool IsDone { get; set; } = false;
 
+        [Column(TypeName = "nvarchar(32)")]
         public ShipmentOptions ShipmentOptions { get; set; } = ShipmentOptions.SelfShipment;
+
+        [Column(TypeName = "nvarchar(32)")]
+        public OrderState State { get; set; } = OrderState.Placed;
+        
+        
     }
 }

@@ -37,7 +37,7 @@ namespace WUI
 
 
             services
-                .AddIdentity<WebUser, WebUserRole>()
+                .AddIdentity<WebUser, IdentityRole>()
                 .AddEntityFrameworkStores<WebUserContext>();
             services.Configure<IdentityOptions>(opt =>
             {
