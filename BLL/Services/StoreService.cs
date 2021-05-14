@@ -12,12 +12,16 @@ namespace BLL.Services
     public class StoreService
     {
         private readonly IStoreRepository _stores = null;
+        private readonly IManagersRepository _managers = null;
         private readonly IMapper _mapper = null;
 
-        public StoreService(IStoreRepository stores, IMapper mapper)
+        public StoreService(IStoreRepository stores,
+            IMapper mapper,
+            IManagersRepository managers)
         {
             _stores = stores;
             _mapper = mapper;
+            _managers = managers;
         }
 
         public bool RegisterStore(StoreDTO store)
@@ -35,6 +39,21 @@ namespace BLL.Services
             return _stores.Update(FromStoreDto(newStore));
         }
 
+        public IEnumerable<ManagersDTO> GetAllManagers()
+        {
+            return _managers.GetAll().Select(ToManagersDto);
+        }
+        
+        public IEnumerable<ManagersDTO> GetManagersByStore(int storeId)
+        {
+            return _managers.GetBySelector(e=>e?.StoreId == storeId)?.Select(ToManagersDto);
+        }
+        
+        public IEnumerable<ManagersDTO> GetStoreByManager(int managerId)
+        {
+            return _managers.GetBySelector(e=>e?.UserId == managerId)?.Select(ToManagersDto);
+        }
+
         public IEnumerable<StoreDTO> GetAllStores()
         {
             return _stores.GetAllInclude().Select(ToStoreDto);
@@ -48,6 +67,16 @@ namespace BLL.Services
         public Store FromStoreDto(StoreDTO msg)
         {
             return _mapper.Map<StoreDTO, Store>(msg);
+        }
+        
+        public ManagersDTO ToManagersDto(Managers msg)
+        {
+            return _mapper.Map<Managers, ManagersDTO>(msg);
+        }
+        
+        public Managers FromManagersDto(ManagersDTO msg)
+        {
+            return _mapper.Map<ManagersDTO, Managers>(msg);
         }
     }
 }

@@ -1,9 +1,7 @@
-@model DAL.Entities.Category
+@model BLL.DTO.CategoryDTO
 
-<h4>Category</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-12">
         <form asp-action="_AddCategoryModal">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -27,8 +25,3 @@
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-

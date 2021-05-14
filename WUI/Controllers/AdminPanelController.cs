@@ -97,7 +97,29 @@ namespace WUI.Controllers
         public async Task<IActionResult> Managers()
         {
             return await Task.Run(() => PartialView("List/_Managers_main",
-                            _orderService.GetAll()));
+                            _stores.GetAllManagers()));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddCategory()
+        {
+            return await Task.Run(() => PartialView("Forms/Add/_AddCategoryModal",
+                new CategoryDTO()));
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> AddCategory(CategoryDTO category)
+        {
+            bool res = _goodsService.AddCategory(category);
+            var response = new ContentResult();
+            if (res)
+            {
+                response.Content = "successfully added";
+            }
+            else
+            {
+                response.Content = "Exception occured. Try again";
+            }
         }
 
         public IActionResult AddUser()
