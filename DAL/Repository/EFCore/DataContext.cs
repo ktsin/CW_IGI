@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Threading;
@@ -11,8 +12,8 @@ namespace DAL.Repository.EFCore
     {
         public DataContext(DbContextOptions<DataContext> opt) : base(opt)
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+            //Database.EnsureDeleted();
+            // Database.EnsureCreated();
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
         
@@ -69,9 +70,6 @@ namespace DAL.Repository.EFCore
                 .HasOne<User>()
                 .WithMany()
                 .HasForeignKey(p => p.UserId);
-            // modelBuilder.Entity<Order>()
-            //     .HasMany<Good>()
-            //     .WithMany<Order>();
             modelBuilder.Entity<Good>()
                 .HasMany<Order>(e=>e.Orders)
                 .WithMany(e => e.Goods);
@@ -79,7 +77,14 @@ namespace DAL.Repository.EFCore
                 .HasOne<User>()
                 .WithMany()
                 .HasForeignKey(p => p.OwnerId);
-            modelBuilder.Entity<Store>().HasMany<Good>().WithOne().HasForeignKey(e => e.StoreId);
+            // modelBuilder.Entity<Store>()
+            //     .HasMany<Good>()
+            //     .WithOne()
+            //     .HasForeignKey(e => e.StoreId);
+            modelBuilder.Entity<Good>()
+                .HasOne<Store>()
+                .WithMany()
+                .HasForeignKey(p => p.StoreId);
             modelBuilder.Entity<UserBasket>()
                 .HasOne<User>()
                 .WithOne();
@@ -89,15 +94,14 @@ namespace DAL.Repository.EFCore
             
             FakeDataGenerator.Init(10);
             
+            
             modelBuilder.Entity<User>().HasData(FakeDataGenerator.Users);
-            Thread.Sleep(100);
             modelBuilder.Entity<Store>().HasData(FakeDataGenerator.Stores);
-            Thread.Sleep(100);
             modelBuilder.Entity<Managers>().HasData(FakeDataGenerator.Managers);
             modelBuilder.Entity<Message>().HasData(FakeDataGenerator.Messages);
             modelBuilder.Entity<Category>().HasData(FakeDataGenerator.Categories);
-            // modelBuilder.Entity<Good>().HasData(FakeDataGenerator.Goods);
-            // modelBuilder.Entity<Order>().HasData(FakeDataGenerator.Orders);
+            modelBuilder.Entity<Good>().HasData(FakeDataGenerator.Goods);
+            modelBuilder.Entity<Order>().HasData(FakeDataGenerator.Orders);
         }
     }
 }

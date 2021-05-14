@@ -56,6 +56,7 @@ namespace DAL.Repository.EFCore.Repositories
             try
             {
                 _context.Categories.Add(obj);
+                _context.SaveChanges();
             }
             catch (Exception e)
             {

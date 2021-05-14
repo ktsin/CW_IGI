@@ -17,11 +17,17 @@ namespace DAL.Repository.EFCore
         {
             var optionsBuilder = new DbContextOptionsBuilder<DataContext>();
 
-            optionsBuilder.UseSqlite("DataSource=\"my.sqlite3\";").EnableDetailedErrors();
+            optionsBuilder
+                .UseSqlite("DataSource=\"my.sqlite3\";",  b => b.MigrationsAssembly("WUI"))
+                .EnableSensitiveDataLogging()
+                .EnableDetailedErrors();
             // optionsBuilder.UseNpgsql(
             //     @"Host=database-1.cgmldnmavr61.eu-central-1.rds.amazonaws.com;Port=5432;"+
             //             "Database=cwdata;Username=postgres;Password=singul2040;", 
-            //     o=>o.UseNodaTime())
+            //     o=>{
+            //         o.UseNodaTime();
+            //         o.MigrationsAssembly("WUI");
+            //     })
             //     .EnableSensitiveDataLogging()
             //     .EnableDetailedErrors();
             // NpgsqlConnection.GlobalTypeMapper.UseNodaTime();

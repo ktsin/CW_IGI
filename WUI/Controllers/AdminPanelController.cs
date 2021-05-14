@@ -120,6 +120,8 @@ namespace WUI.Controllers
             {
                 response.Content = "Exception occured. Try again";
             }
+
+            return response;
         }
 
         public IActionResult AddUser()

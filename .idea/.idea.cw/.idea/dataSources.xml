@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="my" uuid="55cc584c-e484-473d-83eb-9d788403b4c1">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/my.sqlite3</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
     <data-source source="LOCAL" name="PostgreSQL - cwdata@database-1.cgmldnmavr61.eu-central-1.rds.amazonaws.com" uuid="c4db0cba-ec7a-4a70-8ac7-b54752d84998">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
@@ -27,13 +20,16 @@
         </library>
       </libraries>
     </data-source>
-    <data-source source="LOCAL" name="my [2]" uuid="cb3525b1-470c-4fdc-9433-74f79fdbcd87">
+    <data-source source="LOCAL" name="my" uuid="681fae7b-d230-477d-87ef-599037518f00">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\ktsin\RiderProjects\CW_IGI\WUI\my.sqlite3</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.34.0/sqlite-jdbc-3.34.0.jar</url>
+        </library>
         <library>
           <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.34.0/sqlite-jdbc-3.34.0.jar</url>
         </library>

@@ -1,5 +1,9 @@
 @model IEnumerable<BLL.DTO.CategoryDTO>
-
+<script>
+        completed = function (xhr) {
+            alert(`Hi ${xhr.responseText}!`);
+        };
+</script>
 <p>
     <a href="" data-ajax="true" data-ajax-url="/AdminPanel/AddCategory" data-ajax-update="#innerModalAdd">
         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -53,7 +57,7 @@
                 <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="innerModalAdd">
-                
+
             </div>
         </div>
     </div>
