@@ -1,17 +1,29 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
+using System.Threading;
 using Microsoft.EntityFrameworkCore;
 using DAL.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace DAL.Repository.EFCore
 {
-    public class DataContext : DbContext
+    public sealed class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> opt) : base(opt)
         {
             // Database.EnsureDeleted();
             // Database.EnsureCreated();
-            base.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
+        
+        public static readonly ILoggerFactory MyLoggerFactory = LoggerFactory.Create(builder =>
+        {
+            builder.AddConsole();
+            // или так с более детальной настройкой
+            //builder.AddFilter((category, level) => category == DbLoggerCategory.Database.Command.Name
+            //            && level == LogLevel.Information)
+            //       .AddConsole();
+        });
 
         public DbSet<User> Users { get; set; }
 
@@ -57,27 +69,35 @@ namespace DAL.Repository.EFCore
                 .HasOne<User>()
                 .WithMany()
                 .HasForeignKey(p => p.UserId);
-            modelBuilder.Entity<Order>()
-                .HasMany(e => e.Goods)
-                .WithOne();
+            // modelBuilder.Entity<Order>()
+            //     .HasMany<Good>()
+            //     .WithMany<Order>();
+            modelBuilder.Entity<Good>()
+                .HasMany<Order>(e=>e.Orders)
+                .WithMany(e => e.Goods);
             modelBuilder.Entity<Store>()
                 .HasOne<User>()
                 .WithMany()
                 .HasForeignKey(p => p.OwnerId);
+            modelBuilder.Entity<Store>().HasMany<Good>().WithOne().HasForeignKey(e => e.StoreId);
             modelBuilder.Entity<UserBasket>()
                 .HasOne<User>()
                 .WithOne();
             modelBuilder.Entity<UserBasket>()
                 .HasMany<Good>(p => p.SelectedGoods)
-                .WithOne();
-            FakeDataGenerator.Init(100);
+                .WithMany(e=>e.Baskets);
+            
+            FakeDataGenerator.Init(10);
+            
             modelBuilder.Entity<User>().HasData(FakeDataGenerator.Users);
+            Thread.Sleep(100);
             modelBuilder.Entity<Store>().HasData(FakeDataGenerator.Stores);
+            Thread.Sleep(100);
             modelBuilder.Entity<Managers>().HasData(FakeDataGenerator.Managers);
             modelBuilder.Entity<Message>().HasData(FakeDataGenerator.Messages);
             modelBuilder.Entity<Category>().HasData(FakeDataGenerator.Categories);
-            modelBuilder.Entity<Good>().HasData(FakeDataGenerator.Goods);
-            modelBuilder.Entity<Order>().HasData(FakeDataGenerator.Orders);
+            // modelBuilder.Entity<Good>().HasData(FakeDataGenerator.Goods);
+            // modelBuilder.Entity<Order>().HasData(FakeDataGenerator.Orders);
         }
     }
 }

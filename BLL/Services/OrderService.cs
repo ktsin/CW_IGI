@@ -1,7 +1,7 @@
 using System.Collections;
+using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
 using BLL.DTO;
 using DAL.Entities;
 using DAL.Repository.Interfaces;
@@ -26,12 +26,16 @@ namespace BLL.Services
 
         public OrderDTO ToOrderDto(Order msg)
         {
-            return _mapper.Map<Order, OrderDTO>(msg);
+            var dto = _mapper.Map<Order, OrderDTO>(msg);
+            dto.Goods = msg.Goods.Select(_mapper.Map<Good, GoodDTO>).ToList();
+            return dto;
         }
 
         public Order FromOrderDto(OrderDTO msg)
         {
-            return _mapper.Map<OrderDTO, Order>(msg);
+            var o = _mapper.Map<OrderDTO, Order>(msg);
+            o.Goods = msg.Goods.Select(_mapper.Map<GoodDTO, Good>).ToList();
+            return o;
         }
     }
 }

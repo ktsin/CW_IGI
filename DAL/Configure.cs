@@ -17,6 +17,7 @@ namespace DAL
                     e.UseSqlite(connectionString);
                     e.EnableDetailedErrors();
                     e.EnableSensitiveDataLogging();
+                    e.UseLoggerFactory(DataContext.MyLoggerFactory);
                 });
 #endif
 #if !DEBUG

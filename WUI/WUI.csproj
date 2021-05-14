@@ -46,7 +46,6 @@
       <Content Remove="Views\AdminPanel\ii.cshtml" />
       <Content Remove="Areas\**" />
       <Content Remove="Views\Account\Logout.cshtml" />
-      <Content Remove="Views\AdminPanel\List\_Orders_main.cshtml" />
     </ItemGroup>
 
     <ItemGroup>

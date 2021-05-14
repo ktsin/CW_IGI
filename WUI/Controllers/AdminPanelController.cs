@@ -94,6 +94,12 @@ namespace WUI.Controllers
                 _orderService.GetAll()));
         }
 
+        public async Task<IActionResult> Managers()
+        {
+            return await Task.Run(() => PartialView("List/_Managers_main",
+                            _orderService.GetAll()));
+        }
+
         public IActionResult AddUser()
         {
             

@@ -24,5 +24,9 @@ namespace DAL.Entities
         public int CategoryId { get; set; }
         
         public ushort Quantity { get; set; }
+        
+        public ICollection<Order> Orders { get; set; }
+        
+        public ICollection<UserBasket> Baskets { get; set; }
     }
 }

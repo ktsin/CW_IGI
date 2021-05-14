@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using DAL.Entities;
 using Bogus;
 
@@ -54,18 +55,20 @@ namespace DAL.Repository
                 .RuleFor(e => e.Id, f => f.IndexGlobal)
                 .RuleFor(e => e.Name, f => f.Commerce.Categories(1)[0])
                 .RuleFor(e => e.Description, f => f.Commerce.ProductDescription());
-            Categories.AddRange(categoryFaker.Generate(cont / 10));
+            Categories.AddRange(categoryFaker.Generate(cont));
             var goodFaker = new Faker<Good>()
                 .RuleFor(e => e.Id, f => f.IndexGlobal)
                 .RuleFor(e => e.Description, f => f.Commerce.ProductDescription())
                 .RuleFor(e => e.Name, f => f.Commerce.ProductName())
                 .RuleFor(e => e.StoreId, f => f.IndexGlobal)
-                .RuleFor(e => e.Price, f => f.Random.UInt(100, 10000));
-            var orderFaker = new Faker<Order>()
-                .RuleFor(e => e.Id, f => f.IndexGlobal)
-                .RuleFor(e => e.UserId, f => f.Random.ListItem(Users).Id)
-                .RuleFor(e => e.Goods, f => f.Random.ListItems(Goods));
-            Orders.AddRange(orderFaker.Generate(cont * 5));
+                .RuleFor(e => e.Price, f => f.Random.UInt(100, 10000))
+                .RuleFor(e=>e.CategoryId, f=>f.Random.Int(Categories.First(e=>true).Id, Categories.Last(e=>true).Id));
+            Goods.AddRange(goodFaker.Generate(cont));
+            // var orderFaker = new Faker<Order>()
+            //     .RuleFor(e => e.Id, f => f.IndexGlobal)
+            //     .RuleFor(e => e.UserId, f => f.Random.ListItem(Users).Id)
+            //     .RuleFor(e => e.Goods, f => f.Random.ListItems(Goods));
+            // Orders.AddRange(orderFaker.Generate(cont * 5));
         }
     }
 }
