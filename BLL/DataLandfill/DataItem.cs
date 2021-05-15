@@ -7,5 +7,10 @@ namespace BLL.DataLandfill
         [Key] public string Id { get; set; }
 
         public string Base64String { get; set; }
+
+        public override string ToString()
+        {
+            return Base64String;
+        }
     }
 }

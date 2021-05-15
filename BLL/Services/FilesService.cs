@@ -54,7 +54,15 @@ namespace BLL.Services
 
         public async Task<DataItem> GetFileById(string id)
         {
-            var result = await _context.Images.FindAsync(id);
+            DataItem result = new DataItem();
+            try
+            {
+                result = await _context.Images.FindAsync(id);
+            }
+            catch
+            {
+                
+            }
             return result;
         }
     }

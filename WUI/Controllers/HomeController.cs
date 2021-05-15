@@ -7,21 +7,31 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WUI.Models;
 using System.Threading;
+using BLL.Services;
 
 namespace WUI.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly GoodsService _goodsService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,
+            GoodsService goodsService)
         {
             _logger = logger;
+            _goodsService = goodsService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Cards()
+        {
+            return await Task.Run(() => PartialView("_ProductCards", _goodsService.GetAllGoods()));
+        }
+        
         public IActionResult Index()
         {
-            return View();
+            return View("_Products");
         }
 
         public async Task<IActionResult> Index0()

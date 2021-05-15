@@ -8,7 +8,7 @@ namespace DAL.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public List<Good> Goods { get; set; }
+        public ICollection<Good> Goods { get; set; }
 
         //Buyer
         public int UserId { get; set; }

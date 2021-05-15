@@ -12,7 +12,9 @@ namespace BLL.DataLandfill
         {
             var optionsBuilder = new DbContextOptionsBuilder<DataLandfillContext>();
 #if DEBUG
-            optionsBuilder.UseSqlite("DataSource=\"/home/ktsin/RiderProjects/cw/landfill.sqlite3\";")
+            optionsBuilder.UseSqlite("DataSource=\"landfill.sqlite3\";", 
+                    o=>o.MigrationsAssembly("WUI"))
+                .EnableSensitiveDataLogging()
                 .EnableDetailedErrors();
 #endif
 #if !DEBUG

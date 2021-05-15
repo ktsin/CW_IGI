@@ -31,7 +31,7 @@ namespace DAL.Repository
                 .RuleFor(e => e.RegistrationDay,
                     f => f.Date.Between(new DateTime(2021, 1, 1), new DateTime(2021, 11, 11))
                         .ToString(CultureInfo.InvariantCulture));
-            Users.AddRange(userFaker.Generate(cont * 10));
+            Users.AddRange(userFaker.Generate(cont * 2));
             var storeId = 120;
             var storeFaker = new Faker<Store>()
                 .RuleFor(e => e.Id, () => ++storeId)
@@ -67,8 +67,10 @@ namespace DAL.Repository
             var orderFaker = new Faker<Order>()
                 .RuleFor(e => e.Id, f => f.IndexGlobal)
                 .RuleFor(e => e.UserId, f => f.Random.ListItem(Users).Id)
-                .RuleFor(e => e.Goods, f => f.Random.ListItems(Goods));
+                .RuleFor(e => e.Goods, f => f.Random.ListItems(Goods).Take(3).ToList());
             Orders.AddRange(orderFaker.Generate(cont * 5));
+            
+            
         }
     }
 }

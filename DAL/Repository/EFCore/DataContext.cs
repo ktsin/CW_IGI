@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Threading;
@@ -13,10 +14,10 @@ namespace DAL.Repository.EFCore
         public DataContext(DbContextOptions<DataContext> opt) : base(opt)
         {
             //Database.EnsureDeleted();
-            // Database.EnsureCreated();
+            //Database.EnsureCreated();
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
-        
+
         public static readonly ILoggerFactory MyLoggerFactory = LoggerFactory.Create(builder =>
         {
             builder.AddConsole();
@@ -46,6 +47,8 @@ namespace DAL.Repository.EFCore
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region MessageConfig
+
             modelBuilder.Entity<Message>()
                 .HasOne<User>()
                 .WithMany()
@@ -54,6 +57,11 @@ namespace DAL.Repository.EFCore
                 .HasOne<User>()
                 .WithMany()
                 .HasForeignKey(p => p.SenderId);
+
+            #endregion
+
+            #region GoodConfig
+
             modelBuilder.Entity<Good>()
                 .HasOne<Store>()
                 .WithMany()
@@ -62,17 +70,36 @@ namespace DAL.Repository.EFCore
                 .HasOne<Category>()
                 .WithMany()
                 .HasForeignKey(p => p.CategoryId);
+            modelBuilder.Entity<Good>()
+                .HasMany<Order>(e => e.Orders)
+                .WithMany(e => e.Goods);
+            modelBuilder.Entity<Good>()
+                .HasOne<Store>()
+                .WithMany()
+                .HasForeignKey(p => p.StoreId);
+
+            #endregion
+
+            #region ManagersConfig
+
             modelBuilder.Entity<Managers>()
                 .HasOne<User>()
                 .WithMany()
                 .HasForeignKey(p => p.UserId);
+
+            #endregion
+
+            #region OrderConfig
+
             modelBuilder.Entity<Order>()
                 .HasOne<User>()
                 .WithMany()
                 .HasForeignKey(p => p.UserId);
-            modelBuilder.Entity<Good>()
-                .HasMany<Order>(e=>e.Orders)
-                .WithMany(e => e.Goods);
+
+            #endregion
+
+            #region StoreConfig
+
             modelBuilder.Entity<Store>()
                 .HasOne<User>()
                 .WithMany()
@@ -81,27 +108,69 @@ namespace DAL.Repository.EFCore
             //     .HasMany<Good>()
             //     .WithOne()
             //     .HasForeignKey(e => e.StoreId);
-            modelBuilder.Entity<Good>()
-                .HasOne<Store>()
-                .WithMany()
-                .HasForeignKey(p => p.StoreId);
+
+            #endregion
+
+            #region UserBasketConfig
+
             modelBuilder.Entity<UserBasket>()
                 .HasOne<User>()
-                .WithOne();
+                .WithOne()
+                .HasForeignKey<UserBasket>(e => e.UserId);
             modelBuilder.Entity<UserBasket>()
                 .HasMany<Good>(p => p.SelectedGoods)
-                .WithMany(e=>e.Baskets);
+                .WithMany(e => e.Baskets);
+
+            #endregion
+
+            #region OrderConfig
+
+            modelBuilder.Entity<Order>()
+                .HasMany<Good>(e => e.Goods)
+                .WithMany(e => e.Orders)
+                .UsingEntity<Dictionary<string, object>>(
+                    "OrderGood",
+                    j => j
+                        .HasOne<Good>()
+                        .WithMany()
+                        .HasForeignKey("GoodId")
+                        .HasConstraintName("FK_OrderGood_Goods_GoodId")
+                        .OnDelete(DeleteBehavior.Cascade),
+                    j => j
+                        .HasOne<Order>()
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .HasConstraintName("FK_OrderGood_Orders_OrderId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                );
+            modelBuilder.Entity<Order>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(e => e.UserId);
+
+            #endregion
+
+            #region UserConfig
+
+
+
+            #endregion
+
             
+            
+            #region FakerConfig
+
             FakeDataGenerator.Init(10);
-            
-            
+
             modelBuilder.Entity<User>().HasData(FakeDataGenerator.Users);
             modelBuilder.Entity<Store>().HasData(FakeDataGenerator.Stores);
             modelBuilder.Entity<Managers>().HasData(FakeDataGenerator.Managers);
             modelBuilder.Entity<Message>().HasData(FakeDataGenerator.Messages);
             modelBuilder.Entity<Category>().HasData(FakeDataGenerator.Categories);
             modelBuilder.Entity<Good>().HasData(FakeDataGenerator.Goods);
-            modelBuilder.Entity<Order>().HasData(FakeDataGenerator.Orders);
+
+
+            #endregion
         }
     }
 }
