@@ -29,6 +29,19 @@ namespace WUI.Controllers
             return await Task.Run(() => PartialView("_ProductCards", _goodsService.GetAllGoods()));
         }
         
+        [HttpGet]
+        public async Task<IActionResult> CardsByCategory(int id)
+        {
+            
+            return await Task.Run(() => PartialView("_ProductCards", _goodsService.GetGoodsByCategoryId(id)));
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> Categories()
+        {
+            return await Task.Run(() => PartialView("_Categories", _goodsService.GetCategories()));
+        }
+        
         public IActionResult Index()
         {
             return View("_Products");

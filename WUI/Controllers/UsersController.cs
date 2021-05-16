@@ -2,13 +2,55 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BLL.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WUI.Auth;
 
 namespace WUI.Controllers
 {
     public class UsersController : Controller
     {
+        private readonly MessageService _messageService;
+        private readonly UserService _userService;
+        private readonly UserManager<WebUser> _userManager;
+
+        public UsersController(MessageService messageService,
+            UserService userService,
+            UserManager<WebUser> userManager)
+        {
+            _messageService = messageService;
+            _userService = userService;
+            _userManager = userManager;
+        }
+
+        [HttpGet]
+        public IActionResult Messages()
+        {
+            if (User.Identity is {IsAuthenticated: true})
+            {
+                return View( _messageService.GetAllRecipientsForUser(1213));
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Messages(int secondUserId)
+        {
+            if (User.Identity is {IsAuthenticated: true})
+            {
+                return View( _messageService.GetAllRecipientsForUser(1213));
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
         // GET: Users
         public ActionResult Index()
         {

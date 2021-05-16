@@ -2,14 +2,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BLL.Services;
+using DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace WUI.Controllers
 {
     public class OrderController : Controller
     {
+        private readonly OrderService _orderService;
+        private readonly UserService _userService;
+        private readonly GoodsService _goodsService;
+        private readonly ILogger<OrderController> _logger;
+        
+        public OrderController(OrderService orderService,
+            UserService userService,
+            GoodsService goodsService,
+            ILogger<OrderController> logger)
+        {
+            _orderService = orderService;
+            _userService = userService;
+            _goodsService = goodsService;
+            _logger = logger;
+        }
         // GET: Order
+        //[Authorize]
         public ActionResult Index()
         {
             return View();

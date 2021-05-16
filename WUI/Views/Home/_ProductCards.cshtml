@@ -13,11 +13,11 @@
                 </a>
             </div>
             <img class="card-img-top" src="@(FS.GetFileById(good?.MainPhotoName).Result?.Base64String)" alt="good img"/>
-            <div class="card-body">
-                <span>@(good?.Description)</span>
-            </div>
+            @* <div class="card-body"> *@
+            @*     <span>@(good?.Description)</span> *@
+            @* </div> *@
             <div class="card-footer">
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center" style="flex-wrap: wrap;">
                     <span>Price: @($"{good?.Price / 100},{good?.Price % 100:d2}")</span>
                     <div role="group" class="align-middle btn-group">
                         <button type="button" class="btn btn-primary">

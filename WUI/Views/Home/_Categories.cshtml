@@ -1,0 +1,13 @@
+﻿@model IEnumerable<BLL.DTO.CategoryDTO>
+
+<div class="list-group">
+    @foreach (var item in Model)
+    {
+        <a href="" class="list-group-item list-group-item-action" 
+           data-ajax="true" data-ajax-url="/Home/CardsByCategory/@(item.Id)" data-ajax-update="#load">
+            <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="@(item.Description)">
+                @(item.Name)
+            </span>
+        </a>
+    }
+</div>

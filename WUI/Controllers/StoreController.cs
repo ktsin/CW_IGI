@@ -2,23 +2,31 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BLL.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WUI.Controllers
 {
-    public class StoreController : Controller
+    public class StoresController : Controller
     {
+        private readonly StoreService _storeService;
+        
+        public StoresController(StoreService storeService)
+        {
+            _storeService = storeService;
+        }
         // GET: Store
         public ActionResult Index()
         {
-            return View();
+            return View(_storeService.GetAllStores());
         }
 
         // GET: Store/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var store = _storeService.GetStoreById(id);
+            return View("_StoreCard", store);
         }
 
         // GET: Store/Create

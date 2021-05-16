@@ -1,11 +1,16 @@
 
 @{
-    ViewData["Title"] = "main";
+    ViewData["Title"] = "Products";
 }
-
-<div id="load">
-    
+<div class="row">
+    <div class="col-3" id="sidebar">
+        
+    </div>
+    <div id="load" class="col-9">
+        
+    </div>
 </div>
+
     <script>
             fetch(`/Home/Cards`)
                 .then((response) => {
@@ -14,4 +19,11 @@
                 .then((result) => {
                     document.getElementById('load').innerHTML = result;
                 });
+            fetch(`/Home/Categories`)
+                            .then((response) => {
+                                return response.text();
+                            })
+                            .then((result) => {
+                                document.getElementById('sidebar').innerHTML = result;
+                            });
     </script>

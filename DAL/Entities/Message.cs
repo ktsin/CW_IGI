@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,5 +14,8 @@ namespace DAL.Entities
         public int RecipientId { get; set; }
 
         [MaxLength(1023)] public string MessageBody { get; set; }
+        
+        [DataType(DataType.Text)]
+        public DateTime MessageTime { get; set; }
     }
 }

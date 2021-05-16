@@ -62,8 +62,9 @@ namespace DAL.Repository
                 .RuleFor(e => e.Name, f => f.Commerce.ProductName())
                 .RuleFor(e => e.StoreId, f => f.PickRandom(Stores).Id)
                 .RuleFor(e => e.Price, f => f.Random.UInt(100, 10000))
+                .RuleFor(e=>e.Quantity, f=>f.Random.UShort(0, 10))
                 .RuleFor(e=>e.CategoryId, f=>f.Random.Int(Categories.First(e=>true).Id, Categories.Last(e=>true).Id));
-            Goods.AddRange(goodFaker.Generate(cont));
+            Goods.AddRange(goodFaker.Generate(cont*2));
             var orderFaker = new Faker<Order>()
                 .RuleFor(e => e.Id, f => f.IndexGlobal)
                 .RuleFor(e => e.UserId, f => f.Random.ListItem(Users).Id)

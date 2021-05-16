@@ -1,0 +1,19 @@
+﻿@model BLL.DTO.StoreDTO
+
+@inject BLL.Services.FilesService FS
+@inject BLL.Services.GoodsService _goods
+
+<div id="load">
+    <div class="row">
+        <div class="col-10 d-flex flex-column align-content-center justify-content-center bg-body shadow">
+            <h1>
+                @(Model.Name) Store.
+            </h1><br>
+            <p>
+                @(Model.Description)
+            </p>
+        </div>
+    </div>
+    @await Html.PartialAsync("~/Views/Home/_ProductCards.cshtml", _goods.GetGoodsByStoreId(Model.Id))
+</div>
+

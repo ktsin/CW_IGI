@@ -1,0 +1,41 @@
+﻿@model IEnumerable<BLL.DTO.StoreDTO>
+
+@{
+    Layout = "_Layout";
+}
+
+@inject BLL.Services.FilesService FS
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="card m-2">
+            <div class="row m-0">
+                <div class="col-4 d-flex align-items-center justify-content-center">
+                    <h2 class="text-danger">
+                        Raiting: @(item.Rating)
+                        <i class="bi bi-star-fill"></i>
+                    </h2>
+                </div>
+                <div class="col-md-8 p-2">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <h3>@(item.Name)</h3>
+                        </li>
+                        <li class="list-group-item">
+                            @(item.Description)
+                        </li>
+                        <li class="list-group-item">
+                            <span class="text-muted">@(item.Address)</span>
+                        </li>
+                    </ul>
+                    <div class="card-body">
+                        <a asp-action="Details" asp-route-id="@item.Id">
+                            <button class="btn btn-info w-100">Go to shop!</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -13,8 +13,8 @@ namespace DAL.Repository.EFCore
     {
         public DataContext(DbContextOptions<DataContext> opt) : base(opt)
         {
-            //Database.EnsureDeleted();
-            //Database.EnsureCreated();
+            // Database.EnsureDeleted();
+            // Database.EnsureCreated();
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
@@ -156,8 +156,6 @@ namespace DAL.Repository.EFCore
 
             #endregion
 
-            
-            
             #region FakerConfig
 
             FakeDataGenerator.Init(10);
@@ -168,7 +166,6 @@ namespace DAL.Repository.EFCore
             modelBuilder.Entity<Message>().HasData(FakeDataGenerator.Messages);
             modelBuilder.Entity<Category>().HasData(FakeDataGenerator.Categories);
             modelBuilder.Entity<Good>().HasData(FakeDataGenerator.Goods);
-
 
             #endregion
         }

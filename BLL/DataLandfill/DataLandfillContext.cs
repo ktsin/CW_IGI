@@ -8,9 +8,15 @@ namespace BLL.DataLandfill
         public DataLandfillContext(DbContextOptions<DataLandfillContext> opt) : base(opt)
         {
             // Database.EnsureDeleted();
-            // Database.EnsureCreated();
+            Database.EnsureCreated();
         }
 
         public DbSet<DataItem> Images { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            FakeDataGenerator.Init(200);
+            modelBuilder.Entity<DataItem>().HasData(FakeDataGenerator.Images);
+        }
     }
 }
