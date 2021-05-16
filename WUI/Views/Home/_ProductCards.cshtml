@@ -8,7 +8,9 @@
     {
         <div class="card col-3" style="margin: 5px;">
             <div class="card-header">
+                <a href="" class="link-primary" data-ajax="true" data-ajax-update="#load" data-ajax-url="/Good/Details/@(good?.Id)">
                 @(good?.Name)
+                </a>
             </div>
             <img class="card-img-top" src="@(FS.GetFileById(good?.MainPhotoName).Result?.Base64String)" alt="good img"/>
             <div class="card-body">

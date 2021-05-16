@@ -2,23 +2,39 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BLL.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 
 namespace WUI.Controllers
 {
     public class GoodController : Controller
     {
-        // GET: Good
-        public ActionResult Index()
-        {
-            return View();
-        }
+        private readonly GoodsService _goodsService;
 
-        // GET: Good/Details/5
-        public ActionResult Details(int id)
+        public GoodController(GoodsService goodsService)
         {
-            return View();
+            _goodsService = goodsService;
+        }
+        
+        // GET: Good/Details/5
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            IActionResult result = null;
+            try
+            {
+                var good = _goodsService.GetById(id);
+                result = PartialView("Details", _goodsService.GetById(id));
+            }
+            catch(Exception ex)
+            {
+                result = new ContentResult();
+                ((ContentResult) result).Content = "Good not found!";
+            }
+
+            return result;
         }
 
         // GET: Good/Create

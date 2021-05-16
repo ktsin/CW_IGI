@@ -1,0 +1,37 @@
+﻿@using BLL.DTO
+@model BLL.DTO.GoodDTO
+
+@inject BLL.Services.FilesService FS
+@inject BLL.Services.StoreService SS
+
+<div class="card-group" style="margin: 5px;">
+    <div class="card mb-3">
+        <img src="@(FS.GetFileById(Model.MainPhotoName).Result?.Base64String)" alt="null">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">@($"Price: {Model.Price / 100}.{Model.Price % 100 :2D}")</li>
+            @{
+                StoreDTO store = SS.GetStoreById(Model.StoreId);
+            }
+            <li class="list-group-item">Store: @(store?.Name); Raintg: @(store?.Rating)<i class="bi bi-star-fill"></i></li>
+        </ul>
+        <div class="card-body">
+            <div class="btn-group" style="width: 100%;">
+                <button class="btn btn-success">Buy!</button>
+                <button class="btn btn-info">Add to basket!</button>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <p class="card-title">
+                @(Model.Name)
+            </p>
+            <p class="text text-info">
+                @(Model.Description)
+            </p>
+            <p class="text-muted">
+                Quantity: @(Model.Quantity)
+            </p>
+        </div>
+    </div>
+</div>

@@ -58,6 +58,11 @@ namespace BLL.Services
         {
             return _stores.GetAllInclude().Select(ToStoreDto);
         }
+
+        public StoreDTO GetStoreById(int id)
+        {
+            return ToStoreDto(_stores.GetById(id));
+        }
         
         public StoreDTO ToStoreDto(Store msg)
         {
