@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -20,5 +21,7 @@ namespace BLL.DTO
         public ShipmentOptions ShipmentOptions { get; set; } = ShipmentOptions.SelfShipment;
         
         public OrderState State { get; set; } = OrderState.Placed;
+        
+        public DateTime OrderDate { get; set; }
     }
 }

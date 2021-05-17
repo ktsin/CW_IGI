@@ -24,6 +24,13 @@ namespace BLL.Services
             return _orderRepository.GetAllInclude().Select(ToOrderDto);
         }
 
+        public IEnumerable<OrderDTO> GetOrderHistory(int userId)
+        {
+            return _orderRepository
+                .GetBySelector(e => e.UserId == userId)
+                .Select(ToOrderDto);
+        }
+
         public OrderDTO ToOrderDto(Order msg)
         {
             var dto = _mapper.Map<Order, OrderDTO>(msg);

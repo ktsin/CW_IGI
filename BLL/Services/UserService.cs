@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using AutoMapper;
 using BLL.DTO;
 using DAL.Entities;
@@ -7,13 +9,17 @@ namespace BLL.Services
 {
     public class UserService
     {
-        private readonly IUserRepository _userRepository = null;
-        private readonly IMapper _mapper = null;
+        private readonly IUserRepository _userRepository;
+        private readonly IUserBasketRepository _basketRepository;
+        private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(IUserRepository userRepository,
+            IMapper mapper,
+            IUserBasketRepository basketRepository)
         {
             _userRepository = userRepository;
             _mapper = mapper;
+            _basketRepository = basketRepository;
         }
 
         public UserDTO AttachUser(UserDTO user)
@@ -27,6 +33,16 @@ namespace BLL.Services
             return ToUserDto(_userRepository.GetById(id));
         }
 
+        public BLL.DTO.UserBasket GetBasketByUser(int userId)
+        {
+            return _basketRepository
+                .GetBySelector(e => e.UserId == userId)
+                .Select(ToUserBasketDto)
+                .FirstOrDefault();
+        }
+        
+        
+
         public UserDTO ToUserDto(User user)
         {
             return _mapper.Map<User, UserDTO>(user);
@@ -35,6 +51,16 @@ namespace BLL.Services
         public User FromUserDto(UserDTO user)
         {
             return _mapper.Map<UserDTO, User>(user);
+        }
+        
+        public DTO.UserBasket ToUserBasketDto(DAL.Entities.UserBasket basket)
+        {
+            return _mapper.Map<DAL.Entities.UserBasket, DTO.UserBasket>(basket);
+        }
+
+        public DAL.Entities.UserBasket FromUserBasketDto(DTO.UserBasket basket)
+        {
+            return _mapper.Map<DTO.UserBasket, DAL.Entities.UserBasket>(basket);
         }
     }
 }

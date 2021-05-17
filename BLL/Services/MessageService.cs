@@ -52,9 +52,15 @@ namespace BLL.Services
             return ids;
         }
 
-        public IEnumerable<MessageDTO> GetConversation()
+        public IEnumerable<MessageDTO> GetConversation(int current, int right)
         {
-            
+            var conversation = _messageRepository.GetBySelector(e => e.RecipientId == current
+                                                  || e.SenderId == right
+                                                  || e.SenderId == current
+                                                  || e.RecipientId == right)
+                .OrderBy(e=>e.MessageTime)
+                .Select(ToMessageDto);
+            return conversation;
         }
 
         #region Converters
@@ -80,26 +86,5 @@ namespace BLL.Services
         }
 
         #endregion
-
-        public class Conversation
-        {
-            public UserDTO ConversationOwner;
-            public UserDTO ConversationRecipient;
-            public IEnumerable<MessageDTO> Messages;
-        }
-
-        public class MessageComparer : IEqualityComparer<Message>
-        {
-            public bool Equals(Message x, Message y)
-            {
-                return ((x?.RecipientId == y?.SenderId) || (x?.SenderId == y?.RecipientId) ||
-                        (x?.SenderId == y?.SenderId && x?.RecipientId == y?.RecipientId));
-            }
-
-            public int GetHashCode(Message obj)
-            {
-                return HashCode.Combine(obj.MessageBody, obj.MessageTime, obj.SenderId, obj.RecipientId);
-            }
-        }
     }
 }

@@ -39,8 +39,6 @@
     <ItemGroup>
       <Folder Include="Views\AdminPanel\Forms\Add" />
       <Folder Include="Views\AdminPanel\Forms\Edit" />
-      <Folder Include="Views\Order" />
-      <Folder Include="Views\UserBasket" />
       <Folder Include="wwwroot\img" />
     </ItemGroup>
 

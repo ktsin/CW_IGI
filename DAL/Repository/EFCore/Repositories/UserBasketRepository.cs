@@ -35,7 +35,7 @@ namespace DAL.Repository.EFCore.Repositories
 
         public IEnumerable<UserBasket> GetBySelector(Func<UserBasket, bool> selector)
         {
-            return _context.UserBaskets.Where(selector);
+            return _context.UserBaskets.Include(e => e.SelectedGoods).Where(selector);
         }
 
         public bool Remove(int id)

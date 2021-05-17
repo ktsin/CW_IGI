@@ -2,13 +2,40 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BLL.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WUI.Auth;
 
 namespace WUI.Controllers
 {
     public class UserBasketController : Controller
     {
+        private readonly UserManager<WebUser> _userManager;
+        private readonly UserService _userService;
+
+        public UserBasketController(UserManager<WebUser> userManager, UserService userService)
+        {
+            _userManager = userManager;
+            _userService = userService;
+        }
+        
+        public IActionResult ShowBasket()
+        {
+            //get current user
+            var webUserName = User.Identity.Name;
+            var webUser = _userManager.Users.FirstOrDefault(e => e.UserName == webUserName);
+            var id = webUser?.UnderlyingUserId??-1;
+            if (id <= 0)
+            {
+                return NotFound();
+            }
+
+            var basket = _userService.GetBasketByUser(id);
+            
+            return View("Basket",basket);
+        }
         // GET: UserBasket
         public ActionResult Index()
         {

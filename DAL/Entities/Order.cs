@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL.Entities
@@ -23,6 +25,7 @@ namespace DAL.Entities
         [Column(TypeName = "varchar(32)")]
         public OrderState State { get; set; } = OrderState.Placed;
         
-        
+        [DataType(DataType.Text)]
+        public DateTime OrderDate { get; set; }
     }
 }
