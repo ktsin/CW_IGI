@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Categories</OriginalElement>
+  <nodes>
+    <node x="112.0" y="15.0">0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Order</node>
+    <node x="154.0" y="267.0">0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Users</node>
+    <node x="518.0" y="50.0">0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Goods</node>
+    <node x="722.0" y="0.0">0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Categories</node>
+    <node x="339.0" y="388.0">0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.UserBaskets</node>
+    <node x="341.0" y="158.0">0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Stores</node>
+    <node x="0.0" y="298.0">0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Managers</node>
+    <node x="500.0" y="327.0">0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.GoodUserBasket</node>
+    <node x="132.0" y="475.0">0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Messages</node>
+    <node x="362.0" y="39.0">0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.OrderGood</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Messages" target="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Users" relationship="REFERENCES">
+      <point x="-4.957014158044046" y="-0.6542252188281736" />
+      <point x="-4.957014158044046" y="-0.6542252188281452" />
+    </edge>
+    <edge source="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Goods" target="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Stores" relationship="REFERENCES">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.GoodUserBasket" target="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.UserBaskets" relationship="REFERENCES">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.UserBaskets" target="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Users" relationship="REFERENCES">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.GoodUserBasket" target="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Goods" relationship="REFERENCES">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.OrderGood" target="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Order" relationship="REFERENCES">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Stores" target="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Users" relationship="REFERENCES">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Managers" target="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Users" relationship="REFERENCES">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Goods" target="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Categories" relationship="REFERENCES">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Order" target="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Users" relationship="REFERENCES">
+      <point x="4.983903676834132" y="-0.40087920878883665" />
+      <point x="4.983903676834132" y="-0.40087920878883665" />
+    </edge>
+    <edge source="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.OrderGood" target="0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Goods" relationship="REFERENCES">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="322.5" y="270.0" />
+  <SelectedNodes>
+    <node>0df06e15-920b-42e6-be62-49480019dbe5.TABLE:main.Categories</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Key columns</Category>
+  </Categories>
+</Diagram>
+
