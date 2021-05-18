@@ -39,6 +39,7 @@
     <ItemGroup>
       <Folder Include="Views\AdminPanel\Forms\Add" />
       <Folder Include="Views\AdminPanel\Forms\Edit" />
+      <Folder Include="Views\Messages" />
       <Folder Include="wwwroot\img" />
     </ItemGroup>
 

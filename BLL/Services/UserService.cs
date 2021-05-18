@@ -35,10 +35,12 @@ namespace BLL.Services
 
         public BLL.DTO.UserBasket GetBasketByUser(int userId)
         {
-            return _basketRepository
+            var b = _basketRepository
                 .GetBySelector(e => e.UserId == userId)
-                .Select(ToUserBasketDto)
                 .FirstOrDefault();
+            var bd = ToUserBasketDto(b);
+            return bd;
+
         }
         
         
