@@ -37,7 +37,8 @@ namespace BLL.Services
             {
                 MessageBody = msg,
                 SenderId = senderId,
-                RecipientId = recipientId
+                RecipientId = recipientId,
+                MessageTime = DateTime.Now
             });
         }
 
@@ -48,18 +49,17 @@ namespace BLL.Services
                 .Select(e => e.SenderId == userId ? e.RecipientId : e.SenderId)
                 .Distinct()
                 .Select(e => _userRepository.GetById(e))
-                .Select(ToUserDto);
+                .Select(ToUserDto).ToList();
             return ids;
         }
 
         public IEnumerable<MessageDTO> GetConversation(int current, int right)
         {
-            var conversation = _messageRepository.GetBySelector(e => e.RecipientId == current
-                                                  || e.SenderId == right
-                                                  || e.SenderId == current
-                                                  || e.RecipientId == right)
-                .OrderBy(e=>e.MessageTime)
-                .Select(ToMessageDto);
+            var conversation = _messageRepository.GetBySelector(e => (e.RecipientId == current && e.SenderId == right)
+                                                                     || (e.SenderId == current &&
+                                                                         e.RecipientId == right))
+                .OrderBy(e => e.MessageTime)
+                .Select(ToMessageDto).ToList();
             return conversation;
         }
 

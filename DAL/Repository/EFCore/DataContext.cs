@@ -95,6 +95,9 @@ namespace DAL.Repository.EFCore
                 .HasOne<User>()
                 .WithMany()
                 .HasForeignKey(p => p.UserId);
+            // modelBuilder.Entity<Order>()
+            //     .HasMany<Good>(e => e.Goods)
+            //     .WithMany(e => e.Orders);
 
             #endregion
 
@@ -135,18 +138,20 @@ namespace DAL.Repository.EFCore
                         .WithMany()
                         .HasForeignKey("GoodId")
                         .HasConstraintName("FK_OrderGood_Goods_GoodId")
-                        .OnDelete(DeleteBehavior.Cascade),
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired(false),
                     j => j
                         .HasOne<Order>()
                         .WithMany()
                         .HasForeignKey("OrderId")
                         .HasConstraintName("FK_OrderGood_Orders_OrderId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired(false)
                 );
-            modelBuilder.Entity<Order>()
-                .HasOne<User>()
-                .WithMany()
-                .HasForeignKey(e => e.UserId);
+            // modelBuilder.Entity<Order>()
+            //     .HasOne<User>()
+            //     .WithMany()
+            //     .HasForeignKey(e => e.UserId);
 
             #endregion
 

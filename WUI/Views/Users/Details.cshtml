@@ -1,0 +1,47 @@
+﻿@using WUI.Auth
+@using Microsoft.AspNetCore.Identity
+@model BLL.DTO.UserDTO
+
+@{
+    Layout = "_Layout";
+}
+
+@inject UserManager<WebUser> _userManager;
+
+<div class="row">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">@(Model.Name)</h3>
+            <p class="text-muted">
+                Id : @(Model.Id)
+            </p>
+            <p>
+                Email : @(_userManager.Users.FirstOrDefault(e => e.UnderlyingUserId == Model.Id)?.Email)
+            </p>
+            <p class="text-muted">
+                Registration date : @(Model.RegistrationDay)
+            </p>
+            @if (User.Identity?.IsAuthenticated ?? false)
+            {
+                <form class="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-complete="sent" data-ajax-url="/Message/Send">
+                    <input class="form-control" type="text" name="messageBody" placeholder="Enter your message here!"/>
+                    <input type="hidden" name="senderId" value="@(_userManager.Users.FirstOrDefault(e => e.UserName == User.Identity.Name)?.UnderlyingUserId ?? 1234)"/>
+                    <input type="hidden" name="recipientId" value="@(Model.Id)"/>
+                    <button class="btn btn-success" type="submit">
+                        Send me!
+                    </button>
+                </form>
+            }
+            <script>
+                    function reloadOnSend(){
+                        document.location.reload();
+                        }
+                    sent = function (xhr){
+                        alert(`${xhr.responseText}`);
+                        reloadOnSend();
+                    }
+                </script>
+
+        </div>
+    </div>
+</div>

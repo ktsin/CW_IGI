@@ -28,7 +28,7 @@
                 <li class="list-group-item d-flex justify-content-between lh-sm">
                     <div>
                         <h6 class="my-0">@(item.Name)</h6>
-                        <small class="text-muted">@($"{String.Join(' ', item.Description.Take(40))}...")</small>
+                        <small class="text-muted">@($"{String.Join("", item.Description.Take(40))}...")</small>
                     </div>
                     <span class="text-muted">@($"{item.Price / 100}.{item.Price % 100 :D2}")</span>
                 </li>
@@ -49,11 +49,11 @@
     }
     <div class="col-md-7 col-lg-8">
         <h4 class="mb-3">Billing address</h4>
-        <form class="needs-validation" novalidate="">
+        <form class="needs-validation" method="post" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed" data-ajax-url="/Order/Checkout">
             <div class="row g-3">
                 <div class="col-sm-12">
-                    <label for="firstName" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="firstName" placeholder="" value="@(uu?.Name)" required="">
+                    <label for="Name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="Name" name="Name" placeholder="" value="@(uu?.Name)" required="">
                     <div class="invalid-feedback">
                         Valid first name is required.
                     </div>
@@ -61,16 +61,16 @@
 
 
                 <div class="col-12">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" value="@(uuid?.Email)">
+                    <label for="Email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="Email" name="Email" value="@(uuid?.Email)">
                     <div class="invalid-feedback">
                         Please enter a valid email address for shipping updates.
                     </div>
                 </div>
 
                 <div class="col-12">
-                    <label for="address" class="form-label">Address</label>
-                    <input type="text" class="form-control" id="address" value="@(uu?.Address)" required>
+                    <label for="Address" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="Address" name="Address" value="@(uu?.Address)" required>
                     <div class="invalid-feedback">
                         Please enter your shipping address.
                     </div>
@@ -78,7 +78,9 @@
 
             </div>
 
-            <hr class="my-4"><button class="w-100 btn btn-primary btn-lg" type="submit">Confirm checkout</button>
+            <hr class="my-4">
+            
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Confirm checkout</button>
         </form>
     </div>
 </div>

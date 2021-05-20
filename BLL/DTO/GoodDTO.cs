@@ -22,5 +22,10 @@ namespace BLL.DTO
         public int CategoryId { get; set; }
         
         public ushort Quantity { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name} : {Id}";
+        }
     }
 }

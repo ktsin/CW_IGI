@@ -44,6 +44,7 @@ namespace DAL.Repository.EFCore.Repositories
             try
             {
                 _context.UserBaskets.Remove(_context.UserBaskets.Find(id));
+                _context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -59,6 +60,7 @@ namespace DAL.Repository.EFCore.Repositories
             try
             {
                 _context.UserBaskets.Add(obj);
+                _context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -73,7 +75,11 @@ namespace DAL.Repository.EFCore.Repositories
             var res = true;
             try
             {
-                _context.UserBaskets.Update(obj);
+                _context.Remove(obj);
+                _context.SaveChanges();
+                _context.UserBaskets.Add(obj);
+                _context.SaveChanges();
+                
             }
             catch (Exception e)
             {

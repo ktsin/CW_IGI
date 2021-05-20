@@ -20,11 +20,11 @@
         </library>
       </libraries>
     </data-source>
-    <data-source source="LOCAL" name="my" uuid="681fae7b-d230-477d-87ef-599037518f00">
+    <data-source source="LOCAL" name="landfill" uuid="79377249-6d8a-4435-8bf6-274aed9179dc">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\ktsin\RiderProjects\CW_IGI\WUI\my.sqlite3</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\ktsin\RiderProjects\CW_IGI\WUI\landfill.sqlite3</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>
@@ -35,11 +35,26 @@
         </library>
       </libraries>
     </data-source>
-    <data-source source="LOCAL" name="landfill" uuid="79377249-6d8a-4435-8bf6-274aed9179dc">
+    <data-source source="LOCAL" name="my_" uuid="fa09567f-dc9b-49f1-98c3-aae306a2722e">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\ktsin\RiderProjects\CW_IGI\WUI\landfill.sqlite3</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\ktsin\RiderProjects\CW_IGI\WUI\my_.sqlite3</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+      <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.34.0/sqlite-jdbc-3.34.0.jar</url>
+        </library>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.34.0/sqlite-jdbc-3.34.0.jar</url>
+        </library>
+      </libraries>
+    </data-source>
+    <data-source source="LOCAL" name="my" uuid="ac5c53a2-230e-446c-b169-5fa3102c5401">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\ktsin\RiderProjects\CW_IGI\WUI\my.sqlite3</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>

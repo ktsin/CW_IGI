@@ -9,7 +9,7 @@
         <div class="card col-3" style="margin: 5px;">
             <div class="card-header">
                 <a href="" class="link-primary" data-ajax="true" data-ajax-update="#load" data-ajax-url="/Good/Details/@(good?.Id)">
-                @(good?.Name)
+                    @(good?.Name)
                 </a>
             </div>
             <img class="card-img-top" src="@(FS.GetFileById(good?.MainPhotoName).Result?.Base64String)" alt="good img"/>
@@ -20,12 +20,17 @@
                 <div class="d-flex justify-content-between align-items-center" style="flex-wrap: wrap;">
                     <span>Price: @($"{good?.Price / 100},{good?.Price % 100:d2}")</span>
                     <div role="group" class="align-middle btn-group">
-                        <button type="button" class="btn btn-primary">
-                            <i class="bi bi-cart-plus-fill"></i>
-                        </button>
-                        <button type="button" class="btn btn-primary">
-                            <i class="bi bi-credit-card-2-back-fill"></i>
-                        </button>
+                        <form method="post" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed" data-ajax-url="/User/">
+                            <button type="button" class="btn btn-primary">
+                                <i class="bi bi-cart-plus-fill"></i>
+                            </button>
+                        </form>
+                        <form>
+                            <button type="button" class="btn btn-primary">
+                                <i class="bi bi-credit-card-2-back-fill"></i>
+                            </button>
+                        </form>
+
                     </div>
                 </div>
             </div>

@@ -22,7 +22,7 @@ namespace DAL.Repository.EFCore.Repositories
 
         public IEnumerable<Message> GetAll()
         {
-            return _context.Messages;
+            return _context.Messages.ToList();
         }
 
         public IEnumerable<Message> GetAllInclude()
@@ -32,7 +32,7 @@ namespace DAL.Repository.EFCore.Repositories
 
         public IEnumerable<Message> GetBySelector(Func<Message, bool> selector)
         {
-            return _context.Messages.Where(selector);
+            return _context.Messages.Where(selector).ToList();
         }
 
         public bool Remove(int id)
@@ -41,6 +41,7 @@ namespace DAL.Repository.EFCore.Repositories
             try
             {
                 _context.Messages.Remove(_context.Messages.Find(id));
+                _context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -56,6 +57,7 @@ namespace DAL.Repository.EFCore.Repositories
             try
             {
                 _context.Messages.Add(obj);
+                _context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -71,6 +73,7 @@ namespace DAL.Repository.EFCore.Repositories
             try
             {
                 _context.Messages.Update(obj);
+                _context.SaveChanges();
             }
             catch (Exception e)
             {

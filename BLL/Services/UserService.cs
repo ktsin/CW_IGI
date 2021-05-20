@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using AutoMapper;
@@ -40,10 +41,16 @@ namespace BLL.Services
                 .FirstOrDefault();
             var bd = ToUserBasketDto(b);
             return bd;
-
         }
-        
-        
+
+        public void CleanBasketByUserId(int userId)
+        {
+            var b = _basketRepository
+                .GetBySelector(e => e.UserId == userId)
+                .FirstOrDefault();
+            b.SelectedGoods = new List<Good>();
+            _basketRepository.Update(b);
+        }
 
         public UserDTO ToUserDto(User user)
         {

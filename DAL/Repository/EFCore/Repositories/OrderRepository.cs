@@ -41,6 +41,7 @@ namespace DAL.Repository.EFCore.Repositories
             try
             {
                 _context.Orders.Remove(_context.Orders.Find(id));
+                _context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -55,13 +56,18 @@ namespace DAL.Repository.EFCore.Repositories
             var res = true;
             try
             {
-                _context.Orders.Add(obj);
+                var goods = obj.Goods;
+                obj.Goods = new List<Good>();
+                obj = _context.Orders.Add(obj).Entity;
+                _context.SaveChanges();
+                obj.Goods = goods;
+                _context.Update(obj);
+                _context.SaveChanges();
             }
             catch (Exception e)
             {
                 res = false;
             }
-
             return res;
         }
 
@@ -70,7 +76,10 @@ namespace DAL.Repository.EFCore.Repositories
             var res = true;
             try
             {
-                _context.Orders.Update(obj);
+                _context.Orders.Remove(obj);
+                _context.SaveChanges();
+                _context.Orders.Add(obj);
+                _context.SaveChanges();
             }
             catch (Exception e)
             {

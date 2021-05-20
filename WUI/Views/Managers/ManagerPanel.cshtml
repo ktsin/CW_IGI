@@ -1,0 +1,65 @@
+﻿@model ManagersViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+@inject BLL.Services.UserService _userService
+
+<table class="table table-striped">
+    <thead>
+    <th>
+        Store name
+    </th>
+    <th>
+        Order composition
+    </th>
+    <th>
+        Order state
+    </th>
+    <th>
+        Contact
+    </th>
+    <th>
+        Action
+    </th>
+    </thead>
+    @foreach (var order in Model.OrdersToProcess)
+    {
+        <tr>
+            <form method="post" data-ajax="true" data-ajax-method="post" data-ajax-url="/Managers/SaveOrderState">
+                <input type="hidden" name="orderId" value="@(order.Id)"/>
+                <td>
+                    @(Model.AssignedStores.FirstOrDefault(e => e.Id == order?.Goods.First().StoreId))
+                </td>
+                <td>
+                    @(String.Join(",\n", order.Goods))
+                </td>
+                <td>
+                    <select asp-items="Html.GetEnumSelectList<BLL.DTO.OrderState>()" name="orderState">
+                        <option value="@order.State"/>
+                    </select>
+                </td>
+                <td>
+                    @{
+                        var user = _userService.GetUserById(order.UserId);
+                    }
+                    <a asp-action="Details" asp-controller="Users" asp-route-id="@(user.Id)">
+                        @(user.Name)
+                    </a>
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-sd-card-fill"></i>
+                    </button>
+                </td>
+            </form>
+        </tr>
+    }
+</table>
+
+<script>
+    saveResult = function (xhr){
+        alert(xhr.textContent);    
+    }
+</script>

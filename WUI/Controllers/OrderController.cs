@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WUI.Auth;
+using OrderDTO = BLL.DTO.OrderDTO;
 
 namespace WUI.Controllers
 {
@@ -35,12 +36,28 @@ namespace WUI.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
         public IActionResult Checkout()
         {
             var o = new OrderDTO();
             o.UserId = _userManager.Users.FirstOrDefault(e => e.UserName.Equals(User.Identity.Name))?.UnderlyingUserId??0;
             o.Goods = _userService.GetBasketByUser(o.UserId)?.SelectedGoods;
+            ViewBag.Order = o;
             return View(o);
+        }
+
+        [HttpPost]
+        public IActionResult Checkout(IFormCollection fields)
+        {
+            var o = new OrderDTO();
+            o.UserId = _userManager.Users.FirstOrDefault(e => e.UserName.Equals(User.Identity.Name))?.UnderlyingUserId??0;
+            o.Goods = _userService.GetBasketByUser(o.UserId)?.SelectedGoods;
+            o.Notes = $"Email:{fields["Email"]}, address : {fields["Address"]}, Name : {fields["Name"]}";
+            var basket = _userService.GetBasketByUser(o.UserId);
+            _userService.CleanBasketByUserId(o.UserId);
+            
+            _orderService.PlaceOrder(o);
+            return new ContentResult(){ Content = "Order placed"};
         }
 
 
@@ -127,7 +144,7 @@ namespace WUI.Controllers
         public IActionResult Index()
         {
             //get current user id 
-            var userName = User.Identity.Name;
+            var userName = User.Identity?.Name;
             var user = _userManager.Users.FirstOrDefault(e => e.UserName == userName);
             var uid = user?.UnderlyingUserId ?? -1;
             if (uid < 0)

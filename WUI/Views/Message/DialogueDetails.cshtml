@@ -1,0 +1,43 @@
+﻿@model IEnumerable<BLL.DTO.MessageDTO>
+
+@{
+    Layout = "_Layout";
+}
+
+@inject BLL.Services.UserService _userService
+
+@if (Model != null)
+{
+    @foreach (var msg in Model)
+    {
+        <div class="row m-1">
+            <div class="card m-1">
+                <div class="card-header">
+                    @(_userService.GetUserById(msg.SenderId)?.Name) has wrote to @(_userService.GetUserById(msg.RecipientId)?.Name) at @(msg?.MessageTime)
+                </div>
+                <div class="card-body">
+                    @(msg.MessageBody)
+                </div>
+            </div>
+        </div>
+    }
+
+    <form class="form" method="post" data-ajax="true" data-ajax-method="post" data-ajax-complete="sent" data-ajax-url="/Message/Send">
+        <input class="form-control" type="text" name="messageBody" placeholder="Enter your message here!"/>
+        <input type="hidden" name="senderId" value="@(Model.First().SenderId)"/>
+        <input type="hidden" name="recipientId" value="@(Model.First().RecipientId)"/>
+        <button class="btn btn-success" type="submit">
+            Send me!
+        </button>
+    </form>
+    <script>
+        function reloadOnSend(){
+            document.location.reload();
+            }
+        sent = function (xhr){
+            alert(`${xhr.responseText}`);
+            reloadOnSend();
+        }
+    </script>
+}
+

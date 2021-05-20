@@ -2,17 +2,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BLL.DTO;
+using BLL.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WUI.Models;
 
 namespace WUI.Controllers
 {
     public class ManagersController : Controller
     {
+        private readonly OrderService _orderService;
+        private readonly StoreService _storeService;
+
+        public ManagersController(OrderService orderService, StoreService storeService)
+        {
+            _orderService = orderService;
+            _storeService = storeService;
+        }
+
         // GET: Managers
         public ActionResult Index()
         {
-            return View();
+            var model = new ManagersViewModel();
+            model.AssignedStores = _storeService.GetAllStores();
+            model.OrdersToProcess = _orderService.GetAll();
+            return View("ManagerPanel", model);
         }
 
         // GET: Managers/Details/5
@@ -88,6 +103,24 @@ namespace WUI.Controllers
             {
                 return View();
             }
+        }
+
+        public IActionResult SaveOrderState(int orderId, OrderState orderState)
+        {
+            ContentResult res = new ContentResult(){Content = "Saved!"};
+            try
+            {
+                var order = _orderService.GetAll().FirstOrDefault(e => e.Id == orderId);
+                order.State = orderState;
+                if (!_orderService.UpdateOrder(order))
+                    res.Content = "Error occured";
+            }
+            catch
+            {
+                res.Content = "Error occured";
+            }
+
+            return res;
         }
     }
 }
