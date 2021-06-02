@@ -29,6 +29,11 @@ namespace BLL.Services
             return _goodRepository.Add(FromGoodDto(good));
         }
 
+        public bool UpdateGood(GoodDTO good)
+        {
+            return _goodRepository.Update(FromGoodDto(good));
+        }
+
         public bool DeleteGood(int id)
         {
             return _goodRepository.Remove(id);
@@ -42,6 +47,12 @@ namespace BLL.Services
         public IEnumerable<GoodDTO> GetAllGoods()
         {
             return _goodRepository.GetAll().Select(ToGoodDto);
+        }
+
+        public bool EditGood(GoodDTO good)
+        {
+            _goodRepository.Update(FromGoodDto(good));
+            return true;
         }
 
         public IEnumerable<GoodDTO> GetGoodsByCategoryId(int categoryId)
@@ -78,6 +89,11 @@ namespace BLL.Services
             return _categoryRepository
                 .GetAllInclude()
                 .Select(ToCategoryDto);
+        }
+
+        public bool UpdateCategory(CategoryDTO category)
+        {
+            return  _categoryRepository.Update(FromCategoryDTO(category));
         }
 
         public GoodDTO ToGoodDto(Good good)

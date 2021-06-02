@@ -8,6 +8,8 @@ using Microsoft.Extensions.Logging;
 using WUI.Models;
 using System.Threading;
 using BLL.Services;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Http;
 
 namespace WUI.Controllers
 {
@@ -62,6 +64,17 @@ namespace WUI.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+        }
+
+        public IActionResult ChangeLanguage(string code)
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(code)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
+
+            return RedirectToAction("Index");
         }
     }
 }

@@ -1,38 +1,35 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using BLL.DTO;
+using BLL.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DAL.Entities;
-using DAL.Repository.EFCore;
 
-namespace WAPI
+namespace WAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
-    public class Categories : ControllerBase
+    public class CategoriesController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly BLL.Services.GoodsService _goodsService;
 
-        public Categories(DataContext context)
+        public CategoriesController(GoodsService goodsService)
         {
-            _context = context;
+            _goodsService = goodsService;
         }
 
         // GET: api/Categories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
+        public ActionResult<IEnumerable<CategoryDTO>> GetCategories()
         {
-            return await _context.Categories.ToListAsync();
+            return new ActionResult<IEnumerable<CategoryDTO>>(_goodsService.GetCategories());
         }
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> GetCategory(int id)
+        public async Task<ActionResult<CategoryDTO>> GetCategory(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
+            var category = _goodsService.GetCategoryById(id);
 
             if (category == null)
             {
@@ -45,64 +42,43 @@ namespace WAPI
         // PUT: api/Categories/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory(int id, Category category)
+        public async Task<IActionResult> UpdateCategory(int id, CategoryDTO category)
         {
             if (id != category.Id)
             {
                 return BadRequest();
             }
+            if(!CategoryExists(id))
+                return NotFound();
 
-            _context.Entry(category).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CategoryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            _goodsService.UpdateCategory(category);
             return NoContent();
         }
 
         // POST: api/Categories
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Category>> PostCategory(Category category)
+        public async Task<ActionResult<CategoryDTO>> AddCategory(CategoryDTO category)
         {
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCategory", new { id = category.Id }, category);
+            _goodsService.AddCategory(category);
+            return CreatedAtAction("GetCategory", new {id = category.Id}, category);
         }
 
         // DELETE: api/Categories/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
+            if (!CategoryExists(id))
             {
                 return NotFound();
             }
-
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
-
+            _goodsService.DeleteCategory(id);
             return NoContent();
         }
 
         private bool CategoryExists(int id)
         {
-            return _context.Categories.Any(e => e.Id == id);
+            return _goodsService.GetCategoryById(id) != null;
         }
     }
 }

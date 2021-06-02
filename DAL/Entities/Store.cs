@@ -8,7 +8,7 @@ namespace DAL.Entities
     public class Store
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; } = int.MinValue;
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

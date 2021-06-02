@@ -1,12 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{248F9027-6C5B-489C-A0E9-7AB0BA3F3582}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31321.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{248F9027-6C5B-489C-A0E9-7AB0BA3F3582}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{AA6BD0C8-D30E-41E9-8E0C-16B24D7E2640}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{AA6BD0C8-D30E-41E9-8E0C-16B24D7E2640}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{44665346-6F27-46A1-B7C3-F7F3DEE68819}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{44665346-6F27-46A1-B7C3-F7F3DEE68819}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WUI", "WUI\WUI.csproj", "{B3DF5572-B213-490D-9D86-02C7BEE3BA78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WUI", "WUI\WUI.csproj", "{B3DF5572-B213-490D-9D86-02C7BEE3BA78}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WAPI", "WAPI\WAPI.csproj", "{85FE1783-72C9-4F87-BC6A-7A1F2B330715}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopAppWAPI", "DesktopAppWAPI\DesktopAppWAPI.csproj", "{CFCBDC92-3197-4AD3-AE92-6FB43E9B8E32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,5 +37,19 @@ Global
 		{B3DF5572-B213-490D-9D86-02C7BEE3BA78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3DF5572-B213-490D-9D86-02C7BEE3BA78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3DF5572-B213-490D-9D86-02C7BEE3BA78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85FE1783-72C9-4F87-BC6A-7A1F2B330715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85FE1783-72C9-4F87-BC6A-7A1F2B330715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85FE1783-72C9-4F87-BC6A-7A1F2B330715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85FE1783-72C9-4F87-BC6A-7A1F2B330715}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFCBDC92-3197-4AD3-AE92-6FB43E9B8E32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFCBDC92-3197-4AD3-AE92-6FB43E9B8E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFCBDC92-3197-4AD3-AE92-6FB43E9B8E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFCBDC92-3197-4AD3-AE92-6FB43E9B8E32}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0DD5088E-B4F7-478C-A98C-D84F04939720}
 	EndGlobalSection
 EndGlobal

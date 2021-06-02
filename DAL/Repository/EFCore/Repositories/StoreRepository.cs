@@ -66,11 +66,12 @@ namespace DAL.Repository.EFCore.Repositories
 
         public bool Add(Store obj)
         {
-            var res = false;
+            var res = true;
             try
             {
                 _context.Stores.Add(obj);
-                _context.SaveChanges();
+                int n = _context.SaveChanges();
+                n = n;
             }
             catch (Exception ex)
             {

@@ -151,7 +151,9 @@ namespace WUI.Controllers
             {
                 return NotFound();
             }
-            return View(_orderService.GetOrderHistory(uid));
+
+            var history = _orderService.GetOrderHistory(uid);
+            return View(history);
         }
     }
 }

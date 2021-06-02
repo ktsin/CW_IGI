@@ -1,22 +1,46 @@
-﻿@model IEnumerable<BLL.DTO.OrderDTO>
+﻿@using BLL.DTO
+@model IEnumerable<BLL.DTO.OrderDTO>
 
 @{
     ViewBag.Title = "Order history";
     Layout = "_Layout";
 }
 
-<table>
+<table class="table table-striped">
     <thead>
     <tr>
         <th>
-            
+            Order date
         </th>
         <th>
-            
+            Order Sum.
+        </th>
+        <th>
+            Order state
+        </th>
+        <th>
+            Order desc.
         </th>
     </tr>
     </thead>
     <tbody>
-    
+@foreach (var order in Model)
+{
+    <tr>
+        <td>
+            @(order?.OrderDate)
+        </td>
+        <td>
+            @{ long sum = order?.Goods?.Sum(e => e?.Price)??0; }
+            @($"{sum / 100}, {sum % 100 :D2}")
+        </td>
+        <td>
+            @(order?.State)
+        </td>
+        <td>
+            @(String.Join(", ", order?.Goods??new List<GoodDTO>()))
+        </td>
+    </tr>
+}
     </tbody>
 </table>

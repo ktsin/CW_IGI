@@ -12,10 +12,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WUI.Auth;
 using BLL;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace WUI
 {
-    public class Startup
+    public class  Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -43,6 +45,20 @@ namespace WUI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            var supportedCultures = new[]
+            {
+                new CultureInfo("en"),
+                new CultureInfo("ru"),
+                new CultureInfo("be-BY")
+            };
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("en"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

@@ -26,7 +26,7 @@ namespace BLL.Services
 
         public bool RegisterStore(StoreDTO store)
         {
-            return _stores.Add(null);
+            return _stores.Add(FromStoreDto(store));
         }
 
         public bool DeleteStore(int id)
@@ -62,6 +62,11 @@ namespace BLL.Services
         public StoreDTO GetStoreById(int id)
         {
             return ToStoreDto(_stores.GetById(id));
+        }
+
+        public bool AssignManager(ManagersDTO manager)
+        {
+            return _managers.Add(FromManagersDto(manager));
         }
         
         public StoreDTO ToStoreDto(Store msg)

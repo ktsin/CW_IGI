@@ -5,6 +5,7 @@ using AutoMapper;
 using BLL.DTO;
 using DAL.Entities;
 using DAL.Repository.Interfaces;
+using UserBasket = BLL.DTO.UserBasket;
 
 namespace BLL.Services
 {
@@ -34,6 +35,13 @@ namespace BLL.Services
             return ToUserDto(_userRepository.GetById(id));
         }
 
+        public bool UpdateBasket(UserBasket basket)
+        {
+            _basketRepository.Update(FromUserBasketDto(basket));
+            
+            return true;
+        }
+
         public BLL.DTO.UserBasket GetBasketByUser(int userId)
         {
             var b = _basketRepository
@@ -50,6 +58,11 @@ namespace BLL.Services
                 .FirstOrDefault();
             b.SelectedGoods = new List<Good>();
             _basketRepository.Update(b);
+        }
+
+        public IEnumerable<UserDTO> GetUsers()
+        {
+            return _userRepository.GetAll().Select(ToUserDto).ToList();
         }
 
         public UserDTO ToUserDto(User user)

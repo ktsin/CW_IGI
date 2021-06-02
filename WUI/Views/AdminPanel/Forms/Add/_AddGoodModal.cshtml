@@ -1,10 +1,8 @@
-@model DAL.Entities.Good
+@model BLL.DTO.GoodDTO
 
-<h4>Good</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="_AddGoodModal">
+        <form asp-action="AddGood" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="StoreId" class="control-label"></label>
@@ -50,8 +48,3 @@
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-

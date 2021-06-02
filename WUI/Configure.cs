@@ -7,10 +7,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WUI.Auth;
 using Npgsql.EntityFrameworkCore;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
+using Microsoft.AspNetCore.Builder;
 
 namespace WUI
 {
     using AutoMapper;
+    using Microsoft.Extensions.Localization;
 
     public static class Configure
     {
@@ -34,7 +38,7 @@ namespace WUI
 
             services.ConfigureBLL(configuration
                 .GetConnectionString(main_data), configuration);
-
+            services.AddAutoMapper(BLL.Configure.ConfigureMapper);
 
             services
                 .AddIdentity<WebUser, IdentityRole>()
@@ -70,8 +74,10 @@ namespace WUI
                 opt.User.RequireUniqueEmail = false;
             });
 
-            services.AddAutoMapper(BLL.Configure.ConfigureMapper);
-            services.AddControllersWithViews();
+            
+            services.AddControllersWithViews()
+                .AddViewLocalization();
+            services.AddSingleton<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>();
             services.AddRazorPages();
 
             return services;

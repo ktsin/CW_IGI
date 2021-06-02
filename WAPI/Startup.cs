@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BLL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +28,17 @@ namespace WAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            
+#if DEBUG
+            var main_data = "MainDataDebugConnectionStringDebug";
+#endif
+#if !DEBUG
+            var main_data = "MainDataDebugConnectionString";
+#endif
+
+            services.ConfigureBLL(Configuration
+                .GetConnectionString(main_data), Configuration);
+            services.AddAutoMapper(BLL.Configure.ConfigureMapper);
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "WAPI", Version = "v1"}); });
         }
 

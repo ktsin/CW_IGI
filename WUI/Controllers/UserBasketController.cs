@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BLL.DTO;
 using BLL.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +16,13 @@ namespace WUI.Controllers
     {
         private readonly UserManager<WebUser> _userManager;
         private readonly UserService _userService;
+        private readonly GoodsService _goodsService;
 
-        public UserBasketController(UserManager<WebUser> userManager, UserService userService)
+        public UserBasketController(UserManager<WebUser> userManager, UserService userService, GoodsService goodsService)
         {
             _userManager = userManager;
             _userService = userService;
+            _goodsService = goodsService;
         }
         
         public IActionResult ShowBasket()
@@ -48,10 +52,33 @@ namespace WUI.Controllers
             return View();
         }
 
-        // GET: UserBasket/Create
-        public ActionResult Create()
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddToBasket(int goodId)
         {
-            return View();
+            var res = new ContentResult() {Content = "Added to cart!"};
+            try
+            {
+                var good = _goodsService.GetById(goodId);
+                var webUserName = User.Identity.Name;
+                var webUser = _userManager.Users.FirstOrDefault(e => e.UserName == webUserName);
+                var id = webUser?.UnderlyingUserId??-1;
+                if (id <= 0)
+                {
+                    res.Content = "Exception occured";
+                }
+
+                good.Quantity -= 1;
+                _goodsService.UpdateGood(good);
+                var basket = _userService.GetBasketByUser(id);
+                basket.SelectedGoods.Add(good);
+                _userService.UpdateBasket(basket);
+            }
+            catch(Exception ex)
+            {
+                res.Content = "Exception occured";
+            }
+            return res;
         }
 
         // POST: UserBasket/Create

@@ -18,6 +18,8 @@
       <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.6" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.6" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Localization" Version="2.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.6" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.6">
         <PrivateAssets>all</PrivateAssets>
@@ -37,7 +39,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Views\AdminPanel\Forms\Add" />
       <Folder Include="Views\AdminPanel\Forms\Edit" />
       <Folder Include="wwwroot\img" />
     </ItemGroup>
@@ -91,6 +92,36 @@
       <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ValidationScriptsPartial.cshtml" />
       <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ViewImports.cshtml" />
       <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ViewStart.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Include="Areas\Identity\IdentityHostingStartup.cs" />
+      <Compile Include="Areas\Identity\Pages\Account\Manage\Index.cshtml.cs" />
+      <Compile Include="Areas\Identity\Pages\Account\Manage\ManageNavPages.cs" />
+      <Compile Include="Areas\Identity\Pages\Account\Manage\SetPassword.cshtml.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="Areas\Identity\Pages\Account\Manage\Index.cshtml" />
+      <None Include="Areas\Identity\Pages\Account\Manage\SetPassword.cshtml" />
+      <None Include="Areas\Identity\Pages\Account\Manage\_ManageNav.cshtml" />
+      <None Include="Areas\Identity\Pages\Account\Manage\_ViewImports.cshtml" />
+      <None Include="Areas\Identity\Pages\Account\_ViewImports.cshtml" />
+      <None Include="Areas\Identity\Pages\_ValidationScriptsPartial.cshtml" />
+      <None Include="Areas\Identity\Pages\_ViewImports.cshtml" />
+      <None Include="Areas\Identity\Pages\_ViewStart.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Resources\SharedResource.be-BY.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\SharedResource.en.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\SharedResource.ru.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
     </ItemGroup>
 
 </Project>

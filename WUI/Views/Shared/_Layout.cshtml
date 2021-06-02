@@ -1,127 +1,146 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IHtmlLocalizer<WUI.Resources.SharedResource> Localizer
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Free Market/@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css"/>
-    <link rel="stylesheet" href="~/css/site.css"/>
-    <link rel="stylesheet" href="~/lib/bootstrap-icons/bootstrap-icons.css"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@Localizer["MarketName"]/@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/bootstrap-icons.css" />
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="">Open market</a>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" asp-controller="Home" asp-action="Index">
-                            <button class="btn btn-outline-primary">
-                                Home
-                            </button>
-                        </a>
-                    </li>
-                    @if (User.Identity?.IsAuthenticated??false)
-                    {
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="">@Localizer["MarketName"]</a>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" asp-controller="Users" asp-action="Messages">
-                                <button class="btn btn-outline-secondary">
-                                    Messages
+                            <a class="nav-link active" aria-current="page" asp-controller="Home" asp-action="Index">
+                                <button class="btn btn-outline-primary">
+                                    @Localizer["HomeButton"]
                                 </button>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" asp-controller="Order" asp-action="Index">
-                                <button class="btn btn-outline-secondary">
-                                    My orders
-                                </button>
-                            </a>
-                        </li>
+                        @if (User.Identity?.IsAuthenticated ?? false)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" asp-controller="Message" asp-action="Index">
+                                    <button class="btn btn-outline-secondary">
+                                        @Localizer["MessagesButton"]
+                                    </button>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" asp-controller="Order" asp-action="Index">
+                                    <button class="btn btn-outline-secondary">
+                                        @Localizer["OrdersButton"]
+                                    </button>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" asp-controller="UserBasket" asp-action="ShowBasket">
+                                    <button class="btn btn-outline-secondary">
+                                        @Localizer["BasketButton"]
+                                    </button>
+                                </a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Manager"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" asp-controller="Managers" asp-action="Index">
+                                    <button class="btn btn-outline-secondary">
+                                        @Localizer["ManagerButton"]
+                                    </button>
+                                </a>
+                            </li>
+                        }
 
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" asp-controller="AdminPanel" asp-action="Index">
+                                    <button class="btn btn-danger">
+                                        @Localizer["AdminButton"]
+                                    </button>
+                                </a>
+                            </li>
+                        }
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" asp-controller="Account" asp-action="Login">
+                                    <button class="btn btn-success">
+                                        @Localizer["LoginButton"]
+                                    </button>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" asp-controller="Account" asp-action="Register">
+                                    <button class="btn btn-info">
+                                        @Localizer["RegisterButton"]
+                                    </button>
+                                </a>
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" asp-controller="Account" asp-action="Logout">
+                                    <button class="btn btn-danger">
+                                        @Localizer["LogoutButton"]
+                                    </button>
+                                </a>
+                            </li>
+                        }
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">
-                                <button class="btn btn-outline-secondary">
-                                    My stores
-                                </button>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" asp-controller="UserBasket" asp-action="ShowBasket">
-                                <button class="btn btn-outline-secondary">
-                                    Basket
-                                </button>
-                            </a>
-                        </li>
-                    }
-                    @if (User.IsInRole("Manager"))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">
-                                <button class="btn btn-outline-secondary">
-                                    Manager part
-                                </button>
-                            </a>
-                        </li>
-                    }
+                            <div class="nav-item active btn-group" role="group">
+                                <a asp-action="ChangeLanguage" asp-controller="Home" asp-route-code="ru">
+                                    <button class="btn btn-success">
+                                        RU
+                                    </button>
+                                </a>
+                                <a asp-action="ChangeLanguage" asp-controller="Home" asp-route-code="en">
+                                    <button class="btn btn-info">
+                                        EN
+                                    </button>
+                                </a>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a asp-action="ChangeLanguage" asp-controller="Home" asp-route-code="be-BY">
+                                        <button class="btn btn-danger">
+                                            BY
+                                        </button>
+                                    </a>
+                                }
 
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" asp-controller="AdminPanel" asp-action="Index">
-                                <button class="btn btn-danger">
-                                    Admin panel
-                                </button>
-                            </a>
+                            </div>
                         </li>
-                    }
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" asp-controller="Account" asp-action="Login">
-                                <button class="btn btn-success">
-                                    Login
-                                </button>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" asp-controller="Account" asp-action="Register">
-                                <button class="btn btn-info">
-                                    Register
-                                </button>
-                            </a>
-                        </li>
-                    }
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" asp-controller="Account" asp-action="Logout">
-                                <button class="btn btn-danger">
-                                    Logout
-                                </button>
-                            </a>
-                        </li>
-                    }
-                </ul>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-</header>
-<div class="container" style="padding: 2px;">
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
-</div>
-
-<footer class="border-top footer shadow" style="background-color: orangered;">
-    <div class="container">
-        &copy; 2021 - Free Market
+        </nav>
+    </header>
+    <div class="container" style="padding: 2px;">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
     </div>
-</footer>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-@await RenderSectionAsync("Scripts", false)
+
+    <footer class="border-top footer shadow" style="background-color: orangered;">
+        <div class="container">
+            &copy; 2021 - Free Market
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", false)
 </body>
 </html>

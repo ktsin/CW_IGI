@@ -1,12 +1,7 @@
 @model IEnumerable<BLL.DTO.StoreDTO>
+@using WUI.HtmlHelpers
 
-<p>
-    <a asp-action="AddStore">
-        <button class="btn btn-success">
-            Add store
-        </button>
-    </a>
-</p>
+@ModalButtonHtmlHelper.ButtonWithModal(Html, "/AdminPanel/AddStore", "Add store");
 <table class="table">
     <thead>
     <tr>
@@ -48,8 +43,7 @@
                 @Html.DisplayFor(modelItem => item.IsActive)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="DeleteStore" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
     }

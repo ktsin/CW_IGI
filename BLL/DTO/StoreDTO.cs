@@ -5,8 +5,7 @@ namespace BLL.DTO
 {
     public class StoreDTO
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; } = int.MinValue;
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

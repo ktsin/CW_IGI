@@ -3,6 +3,10 @@
 
 @inject FilesService FS
 
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IHtmlLocalizer<WUI.Resources.SharedResource> Localizer
+
 <div class="d-flex" style="flex-wrap: wrap;">
     @foreach (var good in Model)
     {
@@ -12,26 +16,28 @@
                     @(good?.Name)
                 </a>
             </div>
-            <img class="card-img-top" src="@(FS.GetFileById(good?.MainPhotoName).Result?.Base64String)" alt="good img"/>
+            <img class="card-img-top" src="@(FS.GetFileById(good?.MainPhotoName).Result?.Base64String)" alt="good img" />
             @* <div class="card-body"> *@
             @*     <span>@(good?.Description)</span> *@
             @* </div> *@
             <div class="card-footer">
                 <div class="d-flex justify-content-between align-items-center" style="flex-wrap: wrap;">
-                    <span>Price: @($"{good?.Price / 100},{good?.Price % 100:d2}")</span>
-                    <div role="group" class="align-middle btn-group">
-                        <form method="post" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed" data-ajax-url="/User/">
-                            <button type="button" class="btn btn-primary">
-                                <i class="bi bi-cart-plus-fill"></i>
-                            </button>
-                        </form>
-                        <form>
-                            <button type="button" class="btn btn-primary">
-                                <i class="bi bi-credit-card-2-back-fill"></i>
-                            </button>
-                        </form>
-
-                    </div>
+                    <span>@Localizer["Price"] @($"{good?.Price / 100},{good?.Price % 100:d2}")</span>
+                    @if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                        <div role="group" class="align-middle btn-group">
+                            <form method="post" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed" data-ajax-url="/UserBasket/AddToBasket/@(good.Id)">
+                                <button type="button" class="btn btn-primary">
+                                    <i class="bi bi-cart-plus-fill"></i>
+                                </button>
+                            </form>
+                            <form method="post" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed" data-ajax-url="/UserBasket/AddToBasket/@(good.Id)">
+                                <button type="button" class="btn btn-primary">
+                                    <i class="bi bi-credit-card-2-back-fill"></i>
+                                </button>
+                            </form>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

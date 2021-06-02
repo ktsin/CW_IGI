@@ -15,18 +15,21 @@
             <li class="list-group-item">Store: @(store?.Name); Raintg: @(store?.Rating)<i class="bi bi-star-fill"></i></li>
         </ul>
         <div class="card-body">
-            @if (Model.Quantity > 0)
+            @if (User.Identity?.IsAuthenticated ?? false)
             {
-                <div class="btn-group" style="width: 100%;">
-                    <button class="btn btn-success">Buy!</button>
-                    <button class="btn btn-info">Add to basket!</button>
-                </div>
-            }
-            else
-            {
-                <div class="btn-group" style="width: 100%;">
-                    <button class="btn btn-warning" disabled>out of stock!</button>
-                </div>
+                @if (Model.Quantity > 0)
+                {
+                    <div class="btn-group" style="width: 100%;">
+                        <button class="btn btn-success">Buy!</button>
+                        <button class="btn btn-info">Add to basket!</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="btn-group" style="width: 100%;">
+                        <button class="btn btn-warning" disabled>out of stock!</button>
+                    </div>
+                }
             }
         </div>
     </div>

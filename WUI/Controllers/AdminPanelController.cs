@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.VisualStudio.Web.CodeGeneration.DotNet;
 using WUI.Auth;
 using OrderState = DAL.Entities.OrderState;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WUI.Controllers
 {
@@ -25,6 +26,7 @@ namespace WUI.Controllers
         private readonly UserService _uUsers = null;
         private readonly GoodsService _goodsService = null;
         private readonly OrderService _orderService = null;
+        private readonly StoreService _storeService;
 
         public AdminPanelController(ILogger<AdminPanelController> logger,
             WebUserContext context,
@@ -33,8 +35,8 @@ namespace WUI.Controllers
             StoreService stores,
             UserService uUsers,
             GoodsService goodsService,
-            OrderService orderService
-            )
+            OrderService orderService,
+            StoreService storeService)
         {
             _logger = logger;
             _context = context;
@@ -44,6 +46,7 @@ namespace WUI.Controllers
             _uUsers = uUsers;
             _goodsService = goodsService;
             _orderService = orderService;
+            _storeService = storeService;
         }
 
         public async Task<IActionResult> Index()
@@ -124,10 +127,115 @@ namespace WUI.Controllers
             return response;
         }
 
+        [HttpGet]
+        public IActionResult DeleteCategory(int id)
+        {
+            try
+            {
+                _goodsService.DeleteCategory(id);
+            }
+            catch
+            {
+                
+            }
+            return RedirectToAction("Index");
+        }
+        
+        // public IActionResult DeleteUser(string id)
+        // {
+        //     try
+        //     {
+        //         
+        //     }
+        //     catch
+        //     {
+        //         
+        //     }
+        //     return RedirectToAction("Index");
+        // }
+
+        [HttpGet]
+        public IActionResult AddStore()
+        {
+            ViewBag.OwnerId = _uUsers.GetUsers().Select(e=>new SelectListItem(e.Name, e.Id.ToString())).ToList();
+            return PartialView("Forms/Add/_AddStoreModal", new BLL.DTO.StoreDTO());
+        }
+
+        [HttpPost]
+        public IActionResult AddStore(StoreDTO store)
+        {
+            if (_storeService.RegisterStore(store))
+                return new ContentResult() { Content = "Succesfully added!" };
+            else
+                return new ContentResult() { Content = "Exception occured!" };
+        }
+
+        [HttpGet]
+        public IActionResult AddManager()
+        {
+
+            ViewBag.UserId = _uUsers.GetUsers().Select(e => new SelectListItem(e.Name, e.Id.ToString())).ToList();
+            ViewBag.StoreId = _storeService.GetAllStores().Select(e => new SelectListItem(e.Name, e.Id.ToString())).ToList();
+            return PartialView("Forms/Add/_AddManagerToStore", new BLL.DTO.ManagersDTO());
+        }
+
+        [HttpPost]
+        public IActionResult AddManager(ManagersDTO manager)
+        {
+            if (_stores.AssignManager(manager))
+                return new ContentResult() { Content = "Succesfully added!" };
+            else
+                return new ContentResult() { Content = "Exception occured!" };
+        }
+
+        [HttpGet]
+        public IActionResult AddGood()
+        {
+            ViewBag.CategoryId = _goodsService.GetCategories().Select(e => new SelectListItem(e.Name, e.Id.ToString())).ToList();
+            ViewBag.StoreId = _storeService.GetAllStores().Select(e => new SelectListItem(e.Name, e.Id.ToString())).ToList();
+            return PartialView("Forms/Add/_AddGoodModal", new BLL.DTO.GoodDTO());
+        }
+
+        [HttpPost]
+        public IActionResult AddGood(GoodDTO good)
+        {
+            if (_goodsService.AddGood(good))
+                return new ContentResult() { Content = "Succesfully added!" };
+            else
+                return new ContentResult() { Content = "Exception occured!" };
+        }
+
+        [HttpGet]
         public IActionResult AddUser()
         {
-            
-            throw new System.NotImplementedException();
+            return PartialView("Forms/Add/_AddUserModal", new WUI.Auth.WebUser());
+        }
+
+        [HttpPost]
+        public IActionResult AddUser(Auth.WebUser user)
+        {
+            var ir = _userManager.CreateAsync(user).Result;
+            if (ir.Succeeded)
+            {
+                _userManager.AddPasswordAsync(user, user.PasswordHash);
+                return new ContentResult() { Content = "Succesfully added!" };
+            }
+            else
+                return new ContentResult() { Content = "Exception occured!" };               
+        }
+
+        public IActionResult DeleteStore(int id)
+        {
+            try
+            {
+                _stores.DeleteStore(id);
+            }
+            catch
+            {
+                
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }
